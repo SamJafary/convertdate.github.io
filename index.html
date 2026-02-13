@@ -742,25 +742,30 @@
                 </button>
 
                 <!-- نتیجه - با نمایش دو زبانه -->
-                <div class="result-card">
-                    <div class="result-icon">
-                        <i class="fas fa-check"></i>
-                    </div>
-                    <div class="result-content">
-                        <div class="result-label">
-                            <i class="fas fa-star"></i>
-                            نتیجه تبدیل:
-                        </div>
-                        <!-- تاریخ به فارسی -->
-                        <div class="result-value-fa" id="result-value-fa">
-                            --/--/----
-                        </div>
-                        <!-- تاریخ به انگلیسی -->
-                        <div class="result-value-en" id="result-value-en">
-                            --/--/----
-                        </div>
-                    </div>
-                </div>
+              <!-- نتیجه - سه خطی -->
+<div class="result-card">
+    <div class="result-icon">
+        <i class="fas fa-check"></i>
+    </div>
+    <div class="result-content">
+        <div class="result-label">
+            <i class="fas fa-star"></i>
+            نتیجه تبدیل:
+        </div>
+        <!-- خط اول: فارسی کامل متنی -->
+        <div class="result-value-fa" id="result-value-fa">
+            -- -- ----
+        </div>
+        <!-- خط دوم: انگلیسی -->
+        <div class="result-value-en" id="result-value-en">
+            -- -- ----
+        </div>
+        <!-- خط سوم: عددی (میلادی) -->
+        <div class="result-value-num" id="result-value-num">
+            --/--/----
+        </div>
+    </div>
+</div>
 
                 <!-- تاریخ امروز -->
                 <div style="display: flex; justify-content: center;">
