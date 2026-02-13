@@ -138,54 +138,111 @@ function loadTodayDate() {
 }
 
 // ===== تابع اصلی تبدیل تاریخ =====
+// ===== تبدیل تاریخ =====
 function convertDate() {
-    const inputNumber = document.getElementById('input-number').value.trim();
-    const fromType = document.getElementById('from-type').value;
-    const toType = document.getElementById('to-type').value;
-    
-    if (!inputNumber) {
-        showResult('لطفاً یک تاریخ وارد کنید', true);
-        shakeElement(document.getElementById('input-number'));
+    // اعتبارسنجی سال
+    if (!validateAndWarnYear()) {
+        document.getElementById('result-value-fa').innerHTML = '❌ سال معتبر وارد کنید';
+        document.getElementById('result-value-en').innerHTML = '❌ Invalid year';
         return;
     }
     
-    const convertBtn = document.getElementById('convert-btn');
-    convertBtn.classList.add('loading');
+    const date = getSelectedDate();
+    const fromType = document.getElementById('from-type').value;
+    const toType = document.getElementById('to-type').value;
     
-    setTimeout(() => {
-        try {
-            const dateParts = parseInputDate(inputNumber);
-            
-            if (!dateParts) {
-                showResult('❌ فرمت تاریخ نامعتبر است', true);
-                convertBtn.classList.remove('loading');
-                return;
-            }
-            
-            const miladiDate = convertToMiladi(dateParts, fromType);
-            
-            if (!miladiDate || isNaN(miladiDate.getTime())) {
-                showResult('❌ تاریخ وارد شده معتبر نیست', true);
-                convertBtn.classList.remove('loading');
-                return;
-            }
-            
-            const result = convertFromMiladi(miladiDate, toType);
-            
-            if (result) {
-                showResult(result, false);
-                animateResult();
-            } else {
-                showResult('❌ خطا در تبدیل تاریخ', true);
-            }
-            
-        } catch (error) {
-            console.error('خطا:', error);
-            showResult('❌ خطای غیرمنتظره رخ داد', true);
-        } finally {
-            convertBtn.classList.remove('loading');
+    if (!date) {
+        document.getElementById('result-value-fa').innerHTML = '❌ لطفاً تاریخ را کامل کنید';
+        document.getElementById('result-value-en').innerHTML = '❌ Please complete the date';
+        return;
+    }
+    
+    try {
+        let miladiDate;
+        
+        // تبدیل به میلادی
+        if (fromType === 'miladi') {
+            miladiDate = new Date(date.year, date.month - 1, date.day);
+        } else if (fromType === 'shamsi') {
+            const g = jalaali.toGregorian(date.year, date.month, date.day);
+            miladiDate = new Date(g.gy, g.gm - 1, g.gd);
+        } else if (fromType === 'ghamari') {
+            const startDate = new Date(622, 6, 16);
+            const daysSinceHijra = (date.year - 1) * 354.367 + (date.month - 1) * 29.530589 + date.day - 1;
+            miladiDate = new Date(startDate.getTime() + daysSinceHijra * 24 * 60 * 60 * 1000);
+        } else if (fromType === 'julian') {
+            miladiDate = new Date(date.year, date.month - 1, date.day);
+        } else {
+            document.getElementById('result-value-fa').innerHTML = '🔧 به زودی...';
+            document.getElementById('result-value-en').innerHTML = '🔧 Coming soon...';
+            return;
         }
-    }, 300);
+        
+        // ===== نمایش نتیجه دو زبانه =====
+        const resultFa = document.getElementById('result-value-fa');
+        const resultEn = document.getElementById('result-value-en');
+        
+        // ماه‌های فارسی
+        const persianMonths = [
+            'فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور',
+            'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'
+        ];
+        
+        // ماه‌های انگلیسی
+        const englishMonths = [
+            'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ];
+        
+        // تبدیل به خروجی
+        if (toType === 'miladi') {
+            const year = miladiDate.getFullYear();
+            const month = miladiDate.getMonth() + 1;
+            const day = miladiDate.getDate();
+            
+            resultFa.innerHTML = `${day} ${persianMonths[month-1]} ${year}`;
+            resultEn.innerHTML = `${englishMonths[month-1]} ${day}, ${year}`;
+            
+        } else if (toType === 'shamsi') {
+            const j = jalaali.toJalaali(miladiDate);
+            
+            resultFa.innerHTML = `${j.jd} ${persianMonths[j.jm-1]} ${j.jy}`;
+            resultEn.innerHTML = `${englishMonths[j.jm-1]} ${j.jd}, ${j.jy}`;
+            
+        } else if (toType === 'ghamari') {
+            const startDate = new Date(622, 6, 16);
+            const daysDiff = Math.floor((miladiDate - startDate) / (24 * 60 * 60 * 1000));
+            let hijriYear = Math.floor(daysDiff / 354.367) + 1;
+            let remainingDays = daysDiff % 354.367;
+            let hijriDay = Math.floor(remainingDays) + 1;
+            let hijriMonth = 1;
+            
+            const monthLengths = [30, 29, 30, 29, 30, 29, 30, 29, 30, 29, 30, 29];
+            for (let i = 0; i < monthLengths.length; i++) {
+                if (hijriDay <= monthLengths[i]) {
+                    hijriMonth = i + 1;
+                    break;
+                }
+                hijriDay -= monthLengths[i];
+            }
+            
+            resultFa.innerHTML = `${hijriDay} ${persianMonths[hijriMonth-1]} ${hijriYear}`;
+            resultEn.innerHTML = `${englishMonths[hijriMonth-1]} ${hijriDay}, ${hijriYear}`;
+            
+        } else if (toType === 'julian') {
+            const year = miladiDate.getFullYear();
+            const month = miladiDate.getMonth() + 1;
+            const day = miladiDate.getDate();
+            
+            resultFa.innerHTML = `${day} ${persianMonths[month-1]} ${year}`;
+            resultEn.innerHTML = `${englishMonths[month-1]} ${day}, ${year}`;
+        }
+        
+    } catch (error) {
+        document.getElementById('result-value-fa').innerHTML = '❌ خطا در تبدیل';
+        document.getElementById('result-value-en').innerHTML = '❌ Conversion error';
+        console.error(error);
+    }
 }
 
 // ===== پارس کردن تاریخ ورودی =====
