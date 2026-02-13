@@ -8,7 +8,7 @@
     <!-- فونت وزیرمتن -->
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
-    <!-- فونت آویزوم برای آیکون‌های مدرن -->
+    <!-- فونت آویزوم برای آیکون‌ها -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -67,7 +67,6 @@
             padding: 20px;
         }
 
-        /* ===== دکمه تغییر تم ===== */
         .theme-toggle {
             position: fixed;
             top: 30px;
@@ -95,7 +94,6 @@
             color: white;
         }
 
-        /* ===== کانتینر اصلی ===== */
         .container {
             width: 100%;
             max-width: 1000px;
@@ -109,7 +107,6 @@
             100% { opacity: 1; transform: scale(1); }
         }
 
-        /* ===== کارت شیشه‌ای ===== */
         .glass-card {
             background: var(--glass-bg);
             backdrop-filter: blur(20px);
@@ -126,7 +123,6 @@
             transform: translateY(-5px);
         }
 
-        /* ===== هدر ===== */
         .header {
             text-align: center;
             margin-bottom: 40px;
@@ -184,7 +180,6 @@
             opacity: 0.8;
         }
 
-        /* ===== باکس تبدیل ===== */
         .converter-box {
             background: var(--card-bg);
             border-radius: 32px;
@@ -198,6 +193,7 @@
             justify-content: center;
             gap: 30px;
             margin-bottom: 40px;
+            flex-wrap: wrap;
         }
 
         .icon-item {
@@ -259,7 +255,12 @@
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
             gap: 20px;
-            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .selectors-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         .date-select-group {
@@ -282,7 +283,35 @@
             font-size: 1rem;
         }
 
-        .modern-select {
+        /* ===== فیلد ورودی سال ===== */
+        .year-input {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid var(--border-color);
+            border-radius: 20px;
+            background: var(--input-bg);
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-family: 'Vazirmatn', sans-serif;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .year-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.1);
+            outline: none;
+            transform: translateY(-2px);
+        }
+
+        .year-input:hover {
+            border-color: var(--primary);
+        }
+
+        /* ===== سلکتورهای ماه و روز ===== */
+        .month-select, .day-select {
             width: 100%;
             padding: 16px 20px;
             border: 2px solid var(--border-color);
@@ -303,12 +332,12 @@
             padding-left: 50px;
         }
 
-        .modern-select:hover {
+        .month-select:hover, .day-select:hover {
             border-color: var(--primary);
             transform: translateY(-2px);
         }
 
-        .modern-select:focus {
+        .month-select:focus, .day-select:focus {
             border-color: var(--primary);
             box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.1);
             outline: none;
@@ -321,6 +350,12 @@
             gap: 20px;
             align-items: end;
             margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .type-selectors {
+                grid-template-columns: 1fr;
+            }
         }
 
         .type-group {
@@ -532,21 +567,14 @@
             50% { transform: scale(1.1); }
         }
 
-        /* ===== ریسپانسیو ===== */
-        @media (max-width: 768px) {
-            .glass-card { padding: 25px; }
-            h1 { font-size: 2rem; }
-            .selectors-grid { grid-template-columns: 1fr; }
-            .type-selectors { grid-template-columns: 1fr; }
-            .modern-icons { flex-wrap: wrap; }
-            .result-value { font-size: 1.8rem; }
-        }
-
-        @media (max-width: 480px) {
-            .glass-card { padding: 20px; }
-            h1 { font-size: 1.8rem; }
-            .result-value { font-size: 1.5rem; }
-            .icon-circle { width: 60px; height: 60px; font-size: 24px; }
+        /* ===== هشدار ===== */
+        .warning-message {
+            color: var(--warning);
+            font-size: 0.9rem;
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
     </style>
 </head>
@@ -575,7 +603,7 @@
 
             <!-- باکس تبدیل -->
             <div class="converter-box">
-                <!-- آیکون‌های مدرن و هماهنگ -->
+                <!-- آیکون‌های مدرن -->
                 <div class="modern-icons">
                     <div class="icon-item">
                         <div class="icon-circle">
@@ -603,43 +631,53 @@
                     </div>
                 </div>
 
-                <!-- سلکتورهای تاریخ - بخش جداگانه سال، ماه، روز -->
+                <!-- سلکتورهای تاریخ -->
                 <div class="date-selectors">
                     <div class="selector-title">
                         <i class="fas fa-calendar-alt"></i>
-                        <span>تاریخ مورد نظر را انتخاب کنید</span>
+                        <span>تاریخ مورد نظر را وارد کنید</span>
                     </div>
                     
                     <div class="selectors-grid">
-                        <!-- سال -->
+                        <!-- سال - تایپ دستی -->
                         <div class="date-select-group">
                             <label>
                                 <i class="fas fa-calendar"></i>
                                 سال
                             </label>
-                            <select id="year-select" class="modern-select">
-                                <option value="">انتخاب سال</option>
-                            </select>
+                            <input 
+                                type="text" 
+                                id="year-input" 
+                                class="year-input" 
+                                placeholder="مثال: 1402 یا 2024" 
+                                autocomplete="off"
+                                dir="ltr"
+                                value="1402"
+                            >
+                            <div id="year-warning" class="warning-message" style="display: none;">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                <span></span>
+                            </div>
                         </div>
 
-                        <!-- ماه -->
+                        <!-- ماه - سلکتور -->
                         <div class="date-select-group">
                             <label>
                                 <i class="fas fa-calendar"></i>
                                 ماه
                             </label>
-                            <select id="month-select" class="modern-select">
+                            <select id="month-select" class="month-select">
                                 <option value="">انتخاب ماه</option>
                             </select>
                         </div>
 
-                        <!-- روز -->
+                        <!-- روز - سلکتور -->
                         <div class="date-select-group">
                             <label>
                                 <i class="fas fa-calendar"></i>
                                 روز
                             </label>
-                            <select id="day-select" class="modern-select">
+                            <select id="day-select" class="day-select">
                                 <option value="">انتخاب روز</option>
                             </select>
                         </div>
@@ -713,7 +751,7 @@
                 </div>
             </div>
 
-            <!-- فوتر ساده -->
+            <!-- فوتر -->
             <footer class="footer">
                 <p>ساخته شده با <span class="heart"><i class="fas fa-heart"></i></span> برای تبدیل تاریخ حرفه‌ای</p>
             </footer>
@@ -726,35 +764,50 @@
     <script>
         // ===== تنظیمات اولیه =====
         let currentTheme = localStorage.getItem('theme') || 'light';
+        
+        // ===== دیتابیس ماه‌ها =====
+        const MONTHS = {
+            shamsi: [
+                'فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور',
+                'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'
+            ],
+            miladi: [
+                'ژانویه', 'فوریه', 'مارس', 'آوریل', 'مه', 'ژوئن',
+                'ژوئیه', 'اوت', 'سپتامبر', 'اکتبر', 'نوامبر', 'دسامبر'
+            ],
+            ghamari: [
+                'محرم', 'صفر', 'ربیع‌الاول', 'ربیع‌الثانی', 'جمادی‌الاول', 'جمادی‌الثانی',
+                'رجب', 'شعبان', 'رمضان', 'شوال', 'ذی‌القعده', 'ذی‌الحجه'
+            ],
+            julian: [
+                'ژانویه', 'فوریه', 'مارس', 'آوریل', 'مه', 'ژوئن',
+                'ژوئیه', 'اوت', 'سپتامبر', 'اکتبر', 'نوامبر', 'دسامبر'
+            ]
+        };
+
+        // ===== اعتبارسنجی سال =====
+        const YEAR_VALIDATION = {
+            shamsi: { min: 1200, max: 1500, message: 'سال شمسی باید بین ۱۲۰۰ تا ۱۵۰۰ باشد' },
+            miladi: { min: 1800, max: 2100, message: 'سال میلادی باید بین ۱۸۰۰ تا ۲۱۰۰ باشد' },
+            ghamari: { min: 1300, max: 1500, message: 'سال قمری باید بین ۱۳۰۰ تا ۱۵۰۰ باشد' },
+            julian: { min: 1800, max: 2100, message: 'سال ژولین باید بین ۱۸۰۰ تا ۲۱۰۰ باشد' }
+        };
 
         // ===== راه‌اندازی =====
         document.addEventListener('DOMContentLoaded', function() {
             setTheme(currentTheme);
-            initializeDateSelectors();
+            initializeMonthSelector('shamsi'); // مقدار پیش‌فرض: شمسی
             loadTodayDate();
             setupEventListeners();
+            updateDays(); // بروزرسانی روزها بر اساس ماه و سال جاری
         });
 
-        // ===== مقداردهی اولیه سلکتورها =====
-        function initializeDateSelectors() {
-            const yearSelect = document.getElementById('year-select');
+        // ===== مقداردهی اولیه سلکتور ماه =====
+        function initializeMonthSelector(calendarType) {
             const monthSelect = document.getElementById('month-select');
-            const daySelect = document.getElementById('day-select');
+            monthSelect.innerHTML = '<option value="">انتخاب ماه</option>';
             
-            // سال‌ها (شمسی)
-            for (let year = 1403; year >= 1300; year--) {
-                const option = document.createElement('option');
-                option.value = year;
-                option.textContent = year;
-                yearSelect.appendChild(option);
-            }
-            
-            // ماه‌ها
-            const months = [
-                'فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور',
-                'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'
-            ];
-            
+            const months = MONTHS[calendarType] || MONTHS.shamsi;
             months.forEach((month, index) => {
                 const option = document.createElement('option');
                 option.value = index + 1;
@@ -762,35 +815,39 @@
                 monthSelect.appendChild(option);
             });
             
-            // روزها (۱ تا ۳۱)
-            for (let day = 1; day <= 31; day++) {
-                const option = document.createElement('option');
-                option.value = day;
-                option.textContent = day;
-                daySelect.appendChild(option);
-            }
-            
-            // تنظیم مقدار پیش‌فرض
+            // تنظیم ماه جاری
             const today = new Date();
-            const jDate = jalaali.toJalaali(today);
-            yearSelect.value = jDate.jy;
-            monthSelect.value = jDate.jm;
-            updateDays(jDate.jy, jDate.jm);
-            daySelect.value = jDate.jd;
+            if (calendarType === 'shamsi') {
+                const jDate = jalaali.toJalaali(today);
+                monthSelect.value = jDate.jm;
+            } else if (calendarType === 'miladi' || calendarType === 'julian') {
+                monthSelect.value = today.getMonth() + 1;
+            }
         }
 
-        // ===== بروزرسانی روزها بر اساس ماه =====
-        function updateDays(year, month) {
+        // ===== بروزرسانی روزها بر اساس نوع تاریخ، سال و ماه =====
+        function updateDays() {
+            const calendarType = document.getElementById('from-type').value;
+            const year = parseInt(document.getElementById('year-input').value) || 1402;
+            const month = parseInt(document.getElementById('month-select').value) || 1;
             const daySelect = document.getElementById('day-select');
-            const currentValue = daySelect.value;
+            const currentDay = daySelect.value;
             
             let daysInMonth = 31;
-            if (month <= 6) {
-                daysInMonth = 31;
-            } else if (month <= 11) {
-                daysInMonth = 30;
-            } else {
-                daysInMonth = jalaali.isLeapJalaaliYear(year) ? 30 : 29;
+            
+            if (calendarType === 'shamsi') {
+                if (month <= 6) {
+                    daysInMonth = 31;
+                } else if (month <= 11) {
+                    daysInMonth = 30;
+                } else {
+                    daysInMonth = jalaali.isLeapJalaaliYear(year) ? 30 : 29;
+                }
+            } else if (calendarType === 'miladi' || calendarType === 'julian') {
+                daysInMonth = new Date(year, month, 0).getDate();
+            } else if (calendarType === 'ghamari') {
+                // ماه‌های قمری: 30 یا 29 روز
+                daysInMonth = [30, 29, 30, 29, 30, 29, 30, 29, 30, 29, 30, 29][month - 1] || 30;
             }
             
             daySelect.innerHTML = '<option value="">انتخاب روز</option>';
@@ -801,9 +858,31 @@
                 daySelect.appendChild(option);
             }
             
-            if (currentValue && currentValue <= daysInMonth) {
-                daySelect.value = currentValue;
+            if (currentDay && parseInt(currentDay) <= daysInMonth) {
+                daySelect.value = currentDay;
             }
+        }
+
+        // ===== اعتبارسنجی سال =====
+        function validateYear(year, calendarType) {
+            const validation = YEAR_VALIDATION[calendarType];
+            if (!validation) return true;
+            
+            const yearNum = parseInt(year);
+            if (isNaN(yearNum)) return false;
+            
+            return yearNum >= validation.min && yearNum <= validation.max;
+        }
+
+        // ===== نمایش هشدار سال =====
+        function showYearWarning(message) {
+            const warningEl = document.getElementById('year-warning');
+            warningEl.style.display = 'flex';
+            warningEl.querySelector('span').textContent = message;
+        }
+
+        function hideYearWarning() {
+            document.getElementById('year-warning').style.display = 'none';
         }
 
         // ===== تنظیم تم =====
@@ -832,22 +911,53 @@
 
         // ===== رویدادها =====
         function setupEventListeners() {
+            // دکمه تغییر تم
             document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+            
+            // دکمه تبدیل
             document.getElementById('convert-btn').addEventListener('click', convertDate);
+            
+            // دکمه سوآپ
             document.getElementById('swap-btn').addEventListener('click', swapDates);
             
-            const monthSelect = document.getElementById('month-select');
-            const yearSelect = document.getElementById('year-select');
-            
-            monthSelect.addEventListener('change', function() {
-                const year = yearSelect.value || 1402;
-                updateDays(year, this.value);
+            // تغییر نوع تاریخ مبدا
+            document.getElementById('from-type').addEventListener('change', function() {
+                initializeMonthSelector(this.value);
+                updateDays();
+                validateAndWarnYear();
             });
             
-            yearSelect.addEventListener('change', function() {
-                const month = monthSelect.value || 1;
-                updateDays(this.value, month);
+            // تغییر سال
+            document.getElementById('year-input').addEventListener('input', function() {
+                updateDays();
+                validateAndWarnYear();
             });
+            
+            // تغییر ماه
+            document.getElementById('month-select').addEventListener('change', updateDays);
+            
+            // اعتبارسنجی سال هنگام خروج از فیلد
+            document.getElementById('year-input').addEventListener('blur', validateAndWarnYear);
+        }
+
+        // ===== اعتبارسنجی و نمایش هشدار =====
+        function validateAndWarnYear() {
+            const year = document.getElementById('year-input').value;
+            const calendarType = document.getElementById('from-type').value;
+            
+            if (!year) {
+                showYearWarning('لطفاً سال را وارد کنید');
+                return false;
+            }
+            
+            if (!validateYear(year, calendarType)) {
+                const validation = YEAR_VALIDATION[calendarType];
+                showYearWarning(validation.message);
+                return false;
+            }
+            
+            hideYearWarning();
+            return true;
         }
 
         // ===== تغییر تم =====
@@ -867,14 +977,19 @@
             swapIcon.style.transform = 'rotate(360deg) scale(1.2)';
             setTimeout(() => { swapIcon.style.transform = ''; }, 500);
             
-            if (document.getElementById('year-select').value) {
+            // بروزرسانی سلکتور ماه بر اساس نوع تاریخ جدید
+            initializeMonthSelector(fromSelect.value);
+            updateDays();
+            validateAndWarnYear();
+            
+            if (document.getElementById('year-input').value) {
                 convertDate();
             }
         }
 
-        // ===== گرفتن تاریخ از سلکتورها =====
+        // ===== گرفتن تاریخ از ورودی‌ها =====
         function getSelectedDate() {
-            const year = document.getElementById('year-select').value;
+            const year = document.getElementById('year-input').value;
             const month = document.getElementById('month-select').value;
             const day = document.getElementById('day-select').value;
             
@@ -882,11 +997,21 @@
                 return null;
             }
             
-            return { year: parseInt(year), month: parseInt(month), day: parseInt(day) };
+            return { 
+                year: parseInt(year), 
+                month: parseInt(month), 
+                day: parseInt(day) 
+            };
         }
 
         // ===== تبدیل تاریخ =====
         function convertDate() {
+            // اعتبارسنجی سال
+            if (!validateAndWarnYear()) {
+                document.getElementById('result-value').innerHTML = '❌ سال معتبر وارد کنید';
+                return;
+            }
+            
             const date = getSelectedDate();
             const fromType = document.getElementById('from-type').value;
             const toType = document.getElementById('to-type').value;
@@ -905,6 +1030,14 @@
                 } else if (fromType === 'shamsi') {
                     const g = jalaali.toGregorian(date.year, date.month, date.day);
                     miladiDate = new Date(g.gy, g.gm - 1, g.gd);
+                } else if (fromType === 'ghamari') {
+                    // تبدیل تقریبی قمری به میلادی
+                    const startDate = new Date(622, 6, 16);
+                    const daysSinceHijra = (date.year - 1) * 354.367 + (date.month - 1) * 29.530589 + date.day - 1;
+                    miladiDate = new Date(startDate.getTime() + daysSinceHijra * 24 * 60 * 60 * 1000);
+                } else if (fromType === 'julian') {
+                    // تبدیل ژولین به میلادی
+                    miladiDate = new Date(date.year, date.month - 1, date.day);
                 } else {
                     document.getElementById('result-value').innerHTML = '🔧 به زودی...';
                     return;
@@ -917,6 +1050,27 @@
                 } else if (toType === 'shamsi') {
                     const j = jalaali.toJalaali(miladiDate);
                     result = `${j.jy}/${String(j.jm).padStart(2, '0')}/${String(j.jd).padStart(2, '0')}`;
+                } else if (toType === 'ghamari') {
+                    // تبدیل تقریبی میلادی به قمری
+                    const startDate = new Date(622, 6, 16);
+                    const daysDiff = Math.floor((miladiDate - startDate) / (24 * 60 * 60 * 1000));
+                    let hijriYear = Math.floor(daysDiff / 354.367) + 1;
+                    let remainingDays = daysDiff % 354.367;
+                    let hijriDay = Math.floor(remainingDays) + 1;
+                    let hijriMonth = 1;
+                    
+                    const monthLengths = [30, 29, 30, 29, 30, 29, 30, 29, 30, 29, 30, 29];
+                    for (let i = 0; i < monthLengths.length; i++) {
+                        if (hijriDay <= monthLengths[i]) {
+                            hijriMonth = i + 1;
+                            break;
+                        }
+                        hijriDay -= monthLengths[i];
+                    }
+                    
+                    result = `${hijriYear}/${String(hijriMonth).padStart(2, '0')}/${String(hijriDay).padStart(2, '0')}`;
+                } else if (toType === 'julian') {
+                    result = `${miladiDate.getFullYear()}/${String(miladiDate.getMonth() + 1).padStart(2, '0')}/${String(miladiDate.getDate()).padStart(2, '0')}`;
                 } else {
                     result = '🔧 به زودی...';
                 }
