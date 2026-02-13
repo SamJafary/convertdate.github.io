@@ -476,17 +476,26 @@
         }
 
         /* ===== کارت نتیجه ===== */
-        .result-card {
-            background: var(--primary-gradient);
-            border-radius: 24px;
-            padding: 30px;
-            display: flex;
-            align-items: center;
-            gap: 25px;
-            margin-bottom: 30px;
-            box-shadow: 0 15px 30px rgba(67, 97, 238, 0.2);
-        }
-
+       <!-- نتیجه - با نمایش دو زبانه -->
+<div class="result-card">
+    <div class="result-icon">
+        <i class="fas fa-check"></i>
+    </div>
+    <div class="result-content">
+        <div class="result-label">
+            <i class="fas fa-star"></i>
+            نتیجه تبدیل:
+        </div>
+        <!-- تاریخ به فارسی -->
+        <div class="result-value-fa" id="result-value-fa">
+            --/--/----
+        </div>
+        <!-- تاریخ به انگلیسی -->
+        <div class="result-value-en" id="result-value-en">
+            --/--/----
+        </div>
+    </div>
+</div>
         .result-icon {
             width: 70px;
             height: 70px;
