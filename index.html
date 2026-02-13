@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <meta name="description" content="تبدیل تاریخ حرفه‌ای - تبدیل انواع تاریخ شمسی، میلادی، قمری و ژولین با طراحی زیبا و انیمیشن">
+    <meta name="keywords" content="تبدیل تاریخ, تبدیل تاریخ شمسی به میلادی, تبدیل تاریخ میلادی به شمسی, تبدیل تاریخ قمری, تبدیل تاریخ ژولین">
+    <meta name="author" content="Date Converter Pro">
+    
+    <title>تبدیل تاریخ | Date Converter Pro</title>
+    
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts - Vazirmatn -->
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%23667eea'>📅</text></svg>">
+</head>
+<body>
+    <!-- دکمه تغییر تم -->
+    <button id="theme-toggle" class="theme-toggle" aria-label="تغییر تم">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- انیمیشن پس‌زمینه -->
+    <div class="floating-shapes">
+        <div class="shape shape1"></div>
+        <div class="shape shape2"></div>
+        <div class="shape shape3"></div>
+        <div class="shape shape4"></div>
+        <div class="shape shape5"></div>
+        <div class="shape shape6"></div>
+    </div>
+
+    <!-- دانه‌های برف -->
+    <div class="snowflakes" aria-hidden="true">
+        <div class="snowflake">❄️</div>
+        <div class="snowflake">❄️</div>
+        <div class="snowflake">❄️</div>
+        <div class="snowflake">❄️</div>
+        <div class="snowflake">❄️</div>
+        <div class="snowflake">❄️</div>
+        <div class="snowflake">❄️</div>
+        <div class="snowflake">❄️</div>
+    </div>
+
+    <!-- کانتینر اصلی -->
+    <main class="container">
+        <div class="glass-card">
+            <!-- هدر -->
+            <div class="header">
+                <div class="logo">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <h1 class="animate-title">
+                    <span>تبدیل تاریخ</span>
+                </h1>
+                <p class="subtitle">حرفه‌ای • سریع • دقیق</p>
+                <div class="underline"></div>
+            </div>
+
+            <!-- بخش تبدیل -->
+            <div class="converter-box">
+                <!-- ورودی عدد -->
+                <div class="input-wrapper">
+                    <div class="input-group animate-input">
+                        <label for="input-number">
+                            <i class="fas fa-pen"></i>
+                            عدد تاریخ را وارد کنید:
+                        </label>
+                        <div class="input-container">
+                            <i class="fas fa-calendar input-icon"></i>
+                            <input 
+                                type="text" 
+                                id="input-number" 
+                                placeholder="مثال: ۱۴۰۲/۱۲/۲۵  یا  2024/03/15" 
+                                autocomplete="off"
+                                dir="ltr"
+                            >
+                            <span class="focus-border"></span>
+                        </div>
+                        <span class="hint-text">فرمت: سال-ماه-روز</span>
+                    </div>
+                </div>
+
+                <!-- انتخاب‌ها -->
+                <div class="selectors-wrapper">
+                    <div class="select-group animate-select">
+                        <label for="from-type">
+                            <i class="fas fa-arrow-right-circle"></i>
+                            تبدیل از:
+                        </label>
+                        <div class="custom-select">
+                            <select id="from-type">
+                                <option value="shamsi" selected>🇮🇷 شمسی (هجری شمسی)</option>
+                                <option value="miladi">🌍 میلادی</option>
+                                <option value="ghamari">🕌 قمری (هجری قمری)</option>
+                                <option value="julian">📜 ژولین</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- دکمه سوآپ -->
+                    <div class="swap-icon" id="swap-btn">
+                        <i class="fas fa-arrows-rotate"></i>
+                    </div>
+
+                    <div class="select-group animate-select">
+                        <label for="to-type">
+                            <i class="fas fa-arrow-left-circle"></i>
+                            تبدیل به:
+                        </label>
+                        <div class="custom-select">
+                            <select id="to-type">
+                                <option value="shamsi">🇮🇷 شمسی (هجری شمسی)</option>
+                                <option value="miladi" selected>🌍 میلادی</option>
+                                <option value="ghamari">🕌 قمری (هجری قمری)</option>
+                                <option value="julian">📜 ژولین</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- دکمه تبدیل -->
+                <button id="convert-btn" class="convert-btn">
+                    <span>تبدیل تاریخ</span>
+                    <i class="fas fa-exchange-alt"></i>
+                </button>
+
+                <!-- بخش نتیجه -->
+                <div class="result-section" id="result-section">
+                    <div class="result-card">
+                        <div class="result-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="result-content">
+                            <div class="result-label">نتیجه تبدیل:</div>
+                            <div class="result-value" id="result-value">
+                                <span class="placeholder">-- / -- / --</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- بخش تاریخ امروز -->
+                <div class="today-section">
+                    <div class="today-badge">
+                        <i class="fas fa-sun"></i>
+                        <span>امروز:</span>
+                        <span id="today-shamsi">۱۴۰۲/۱۲/۲۵</span>
+                        <span class="separator">|</span>
+                        <span id="today-miladi">۲۰۲۴/۰۳/۱۵</span>
+                    </div>
+                </div>
+
+                <!-- نمونه‌های سریع -->
+                <div class="quick-examples">
+                    <span class="example-label">نمونه‌های سریع:</span>
+                    <div class="example-buttons">
+                        <button class="example-btn" data-example="1402/12/29">📅 ۱۴۰۲/۱۲/۲۹</button>
+                        <button class="example-btn" data-example="2024/03/20">🌍 ۲۰۲۴/۰۳/۲۰</button>
+                        <button class="example-btn" data-example="1445/09/10">🕌 ۱۴۴۵/۰۹/۱۰</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- فوتر -->
+            <footer class="footer">
+                <p>طراحی شده با <i class="fas fa-heart" style="color: #ff6b6b;"></i> برای تبدیل تاریخ حرفه‌ای</p>
+                <div class="footer-links">
+                    <span>📅 Date Converter Pro v1.0</span>
+                    <span class="dot">•</span>
+                    <span>✨ تمامی حقوق محفوظ است</span>
+                </div>
+            </footer>
+        </div>
+    </main>
+
+    <!-- کتابخانه‌ها -->
+    <script src="https://cdn.jsdelivr.net/npm/jalaali-js@1.2.6/dist/jalaali.min.js"></script>
+    
+    <!-- اسکریپت اصلی -->
+    <script src="script.js"></script>
+</body>
+</html>
