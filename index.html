@@ -2,49 +2,52 @@
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تبدیل تاریخ | Date Converter Pro</title>
     
-    <!-- فونت وزیرمتن از Google Fonts -->
+    <!-- فونت وزیرمتن -->
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
-    <!-- فونت آویزوم برای آیکون‌ها -->
+    <!-- فونت آویزوم برای آیکون‌های مدرن -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- استایل اصلی - با آدرس درست برای گیت‌هاب -->
     <style>
         /* ===== متغیرهای CSS ===== */
         :root {
-            --primary: #667eea;
-            --secondary: #764ba2;
-            --primary-gradient: linear-gradient(145deg, #667eea, #764ba2);
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --success: #4cc9f0;
+            --warning: #f72585;
+            --primary-gradient: linear-gradient(145deg, #4361ee, #3a0ca3);
+            --secondary-gradient: linear-gradient(145deg, #4cc9f0, #4895ef);
             --glass-bg: rgba(255, 255, 255, 0.25);
             --glass-border: rgba(255, 255, 255, 0.18);
             --text-primary: #1a1f36;
             --text-secondary: #4a5568;
-            --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #e9eef5 100%);
+            --bg-gradient: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
             --card-bg: rgba(255, 255, 255, 0.95);
-            --shadow-lg: 0 20px 40px rgba(102, 126, 234, 0.15);
+            --shadow-sm: 0 5px 20px rgba(0, 0, 0, 0.02);
+            --shadow-lg: 0 20px 40px rgba(67, 97, 238, 0.1);
             --input-bg: white;
             --border-color: #e2e8f0;
+            --border-radius: 24px;
         }
 
         [data-theme="dark"] {
-            --primary: #5a67d8;
-            --secondary: #6b46c1;
-            --primary-gradient: linear-gradient(145deg, #5a67d8, #6b46c1);
-            --glass-bg: rgba(26, 32, 44, 0.8);
+            --primary: #4895ef;
+            --secondary: #4cc9f0;
+            --primary-gradient: linear-gradient(145deg, #4895ef, #3f37c9);
+            --glass-bg: rgba(18, 18, 18, 0.8);
             --glass-border: rgba(255, 255, 255, 0.05);
-            --text-primary: #f7fafc;
-            --text-secondary: #cbd5e0;
-            --bg-gradient: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
-            --card-bg: rgba(26, 32, 44, 0.95);
+            --text-primary: #f8f9fa;
+            --text-secondary: #ced4da;
+            --bg-gradient: linear-gradient(135deg, #121212 0%, #1e1e1e 100%);
+            --card-bg: rgba(30, 30, 30, 0.95);
             --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.3);
-            --input-bg: #2d3748;
-            --border-color: #4a5568;
+            --input-bg: #2d2d2d;
+            --border-color: #404040;
         }
 
-        /* ===== استایل پایه ===== */
         * {
             margin: 0;
             padding: 0;
@@ -62,69 +65,40 @@
             position: relative;
             transition: all 0.3s ease;
             padding: 20px;
-            line-height: 1.6;
         }
 
-        /* ===== اشکال شناور ===== */
-        .floating-shapes {
+        /* ===== دکمه تغییر تم ===== */
+        .theme-toggle {
             position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: 0;
-            overflow: hidden;
+            top: 30px;
+            left: 30px;
+            width: 55px;
+            height: 55px;
+            border-radius: 16px;
+            border: none;
+            background: var(--card-bg);
+            color: var(--text-primary);
+            font-size: 1.3rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.4s ease;
+            border: 1px solid var(--glass-border);
         }
 
-        .shape {
-            position: absolute;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            opacity: 0.1;
-            border-radius: 50%;
-            animation: float 20s infinite;
-        }
-
-        .shape1 {
-            width: 300px;
-            height: 300px;
-            top: -150px;
-            right: -150px;
-            animation-delay: 0s;
-        }
-
-        .shape2 {
-            width: 250px;
-            height: 250px;
-            bottom: -120px;
-            left: -120px;
-            animation-delay: -5s;
-        }
-
-        .shape3 {
-            width: 200px;
-            height: 200px;
-            top: 50%;
-            left: 10%;
-            animation-delay: -10s;
-        }
-
-        .shape4 {
-            width: 150px;
-            height: 150px;
-            bottom: 20%;
-            right: 15%;
-            animation-delay: -15s;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-30px) rotate(180deg); }
+        .theme-toggle:hover {
+            transform: rotate(45deg) scale(1.1);
+            background: var(--primary-gradient);
+            color: white;
         }
 
         /* ===== کانتینر اصلی ===== */
         .container {
             width: 100%;
-            max-width: 950px;
+            max-width: 1000px;
             position: relative;
             z-index: 10;
             animation: fadeInScale 0.8s ease-out;
@@ -148,7 +122,7 @@
         }
 
         .glass-card:hover {
-            box-shadow: 0 30px 60px rgba(102, 126, 234, 0.25);
+            box-shadow: 0 30px 60px rgba(67, 97, 238, 0.2);
             transform: translateY(-5px);
         }
 
@@ -159,20 +133,21 @@
         }
 
         .logo {
-            width: 80px;
-            height: 80px;
+            width: 90px;
+            height: 90px;
             background: var(--primary-gradient);
             border-radius: 30px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 20px;
-            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.3);
+            margin: 0 auto 25px;
+            box-shadow: 0 15px 30px rgba(67, 97, 238, 0.25);
         }
 
         .logo i {
-            font-size: 40px;
+            font-size: 45px;
             color: white;
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1));
         }
 
         h1 {
@@ -182,157 +157,136 @@
             background: var(--primary-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: titlePulse 3s ease-in-out infinite;
-        }
-
-        @keyframes titlePulse {
-            0%, 100% { letter-spacing: normal; }
-            50% { letter-spacing: 3px; }
+            letter-spacing: -0.5px;
         }
 
         .subtitle {
             color: var(--text-secondary);
             font-size: 1.1rem;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .subtitle i {
+            color: var(--primary);
+            font-size: 1.2rem;
         }
 
         .underline {
-            width: 150px;
+            width: 180px;
             height: 4px;
             background: var(--primary-gradient);
             margin: 0 auto;
             border-radius: 2px;
-            animation: expandLine 3s ease-in-out infinite;
-        }
-
-        @keyframes expandLine {
-            0%, 100% { width: 150px; opacity: 0.7; }
-            50% { width: 200px; opacity: 1; }
+            opacity: 0.8;
         }
 
         /* ===== باکس تبدیل ===== */
         .converter-box {
             background: var(--card-bg);
             border-radius: 32px;
-            padding: 35px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            padding: 40px;
+            box-shadow: var(--shadow-sm);
         }
 
-        /* ===== ورودی ===== */
-        .input-wrapper {
-            margin-bottom: 30px;
+        /* ===== آیکون‌های مدرن ===== */
+        .modern-icons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 40px;
         }
 
-        .input-group label {
-            display: block;
-            margin-bottom: 12px;
-            font-weight: 600;
-            color: var(--text-primary);
+        .icon-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
         }
 
-        .input-group label i {
-            color: var(--primary);
-            margin-left: 8px;
-        }
-
-        .input-container {
-            position: relative;
-            width: 100%;
-        }
-
-        .input-icon {
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--primary);
-            font-size: 1.2rem;
-            z-index: 2;
-        }
-
-        #input-number {
-            width: 100%;
-            padding: 18px 25px 18px 50px;
-            border: 2px solid var(--border-color);
-            border-radius: 20px;
-            background: var(--input-bg);
-            color: var(--text-primary);
-            font-size: 1.1rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            outline: none;
-            direction: ltr;
-            text-align: left;
-            font-family: 'Vazirmatn', sans-serif;
-        }
-
-        #input-number:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
-            transform: translateY(-2px);
-        }
-
-        .focus-border {
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 3px;
+        .icon-circle {
+            width: 70px;
+            height: 70px;
             background: var(--primary-gradient);
-            transition: all 0.4s ease;
-            border-radius: 3px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 28px;
+            box-shadow: 0 10px 20px rgba(67, 97, 238, 0.2);
+            transition: all 0.3s ease;
         }
 
-        #input-number:focus ~ .focus-border {
-            width: 100%;
-            left: 0;
+        .icon-circle:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(67, 97, 238, 0.3);
         }
 
-        .hint-text {
-            display: block;
-            margin-top: 8px;
-            font-size: 0.85rem;
+        .icon-label {
+            font-size: 0.9rem;
             color: var(--text-secondary);
-            opacity: 0.7;
+            font-weight: 500;
         }
 
-        /* ===== سلکتورها ===== */
-        .selectors-wrapper {
-            display: grid;
-            grid-template-columns: 1fr auto 1fr;
-            gap: 20px;
-            align-items: end;
+        /* ===== سلکتورهای تاریخ ===== */
+        .date-selectors {
+            background: linear-gradient(145deg, rgba(67, 97, 238, 0.05), rgba(58, 12, 163, 0.05));
+            border-radius: 28px;
+            padding: 30px;
             margin-bottom: 30px;
         }
 
-        @media (max-width: 768px) {
-            .selectors-wrapper {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .select-group label {
-            display: block;
-            margin-bottom: 12px;
-            font-weight: 600;
+        .selector-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 25px;
             color: var(--text-primary);
+            font-weight: 600;
+            font-size: 1.1rem;
         }
 
-        .select-group label i {
+        .selector-title i {
             color: var(--primary);
-            margin-left: 8px;
+            font-size: 1.3rem;
         }
 
-        .custom-select {
-            position: relative;
-            width: 100%;
+        .selectors-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
         }
 
-        .custom-select select {
+        .date-select-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .date-select-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .date-select-group label i {
+            color: var(--primary);
+            font-size: 1rem;
+        }
+
+        .modern-select {
             width: 100%;
             padding: 16px 20px;
             border: 2px solid var(--border-color);
-            border-radius: 18px;
+            border-radius: 20px;
             background: var(--input-bg);
             color: var(--text-primary);
             font-size: 1rem;
@@ -342,68 +296,106 @@
             -webkit-appearance: none;
             transition: all 0.3s ease;
             font-family: 'Vazirmatn', sans-serif;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%234361ee' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: left 20px center;
+            background-size: 16px;
+            padding-left: 50px;
         }
 
-        .custom-select select:hover {
+        .modern-select:hover {
             border-color: var(--primary);
+            transform: translateY(-2px);
         }
 
-        .custom-select select:focus {
+        .modern-select:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+            box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.1);
             outline: none;
         }
 
-        .custom-select::after {
-            content: '\f078';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--primary);
-            pointer-events: none;
-            transition: transform 0.3s ease;
+        /* ===== سلکتورهای نوع تاریخ ===== */
+        .type-selectors {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 20px;
+            align-items: end;
+            margin-bottom: 30px;
         }
 
-        .custom-select:hover::after {
-            transform: translateY(-50%) rotate(180deg);
+        .type-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .type-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .type-group label i {
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .type-select {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid var(--border-color);
+            border-radius: 20px;
+            background: var(--input-bg);
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+            transition: all 0.3s ease;
+            font-family: 'Vazirmatn', sans-serif;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%234361ee' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: left 20px center;
+            background-size: 16px;
+            padding-left: 50px;
         }
 
         /* ===== دکمه سوآپ ===== */
-        .swap-icon {
+        .swap-btn {
             display: flex;
             justify-content: center;
             align-items: center;
-            padding-bottom: 15px;
+            padding-bottom: 10px;
         }
 
-        .swap-icon i {
+        .swap-btn i {
             font-size: 1.8rem;
             color: white;
             background: var(--primary-gradient);
             padding: 18px;
-            border-radius: 50%;
+            border-radius: 18px;
             cursor: pointer;
-            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 10px 25px rgba(67, 97, 238, 0.3);
         }
 
-        .swap-icon i:hover {
-            transform: rotate(180deg) scale(1.15);
-            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.5);
+        .swap-btn i:hover {
+            transform: rotate(180deg) scale(1.1);
+            box-shadow: 0 15px 35px rgba(67, 97, 238, 0.5);
         }
 
         /* ===== دکمه تبدیل ===== */
         .convert-btn {
             width: 100%;
-            padding: 20px 30px;
+            padding: 20px;
             border: none;
-            border-radius: 20px;
+            border-radius: 24px;
             background: var(--primary-gradient);
             color: white;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 700;
             cursor: pointer;
             display: flex;
@@ -411,10 +403,9 @@
             align-items: center;
             gap: 15px;
             transition: all 0.4s ease;
+            margin-bottom: 30px;
             position: relative;
             overflow: hidden;
-            margin-bottom: 35px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .convert-btn::before {
@@ -425,22 +416,23 @@
             width: 0;
             height: 0;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.2);
             transform: translate(-50%, -50%);
             transition: width 0.8s, height 0.8s;
         }
 
         .convert-btn:hover::before {
-            width: 500px;
-            height: 500px;
+            width: 600px;
+            height: 600px;
         }
 
         .convert-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 20px 40px rgba(67, 97, 238, 0.4);
         }
 
         .convert-btn i {
+            font-size: 1.3rem;
             transition: transform 0.4s ease;
         }
 
@@ -448,31 +440,23 @@
             transform: translateX(10px);
         }
 
-        /* ===== بخش نتیجه ===== */
-        .result-section {
-            margin-bottom: 30px;
-        }
-
+        /* ===== کارت نتیجه ===== */
         .result-card {
             background: var(--primary-gradient);
             border-radius: 24px;
-            padding: 25px;
+            padding: 30px;
             display: flex;
             align-items: center;
             gap: 25px;
-            animation: resultPulse 2s ease-in-out infinite;
-        }
-
-        @keyframes resultPulse {
-            0%, 100% { box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3); }
-            50% { box-shadow: 0 20px 40px rgba(102, 126, 234, 0.5); }
+            margin-bottom: 30px;
+            box-shadow: 0 15px 30px rgba(67, 97, 238, 0.2);
         }
 
         .result-icon {
-            width: 60px;
-            height: 60px;
+            width: 70px;
+            height: 70px;
             background: rgba(255, 255, 255, 0.2);
-            border-radius: 18px;
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -480,7 +464,7 @@
         }
 
         .result-icon i {
-            font-size: 30px;
+            font-size: 35px;
             color: white;
         }
 
@@ -489,36 +473,34 @@
         }
 
         .result-label {
-            font-size: 1rem;
+            font-size: 0.95rem;
             color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .result-value {
             font-size: 2.2rem;
             font-weight: 800;
             color: white;
-            word-break: break-word;
             line-height: 1.2;
+            word-break: break-word;
         }
 
         /* ===== تاریخ امروز ===== */
-        .today-section {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 25px;
-        }
-
         .today-badge {
-            background: rgba(102, 126, 234, 0.1);
-            padding: 14px 30px;
+            background: rgba(67, 97, 238, 0.1);
+            padding: 15px 25px;
             border-radius: 50px;
             display: inline-flex;
             align-items: center;
-            gap: 12px;
+            gap: 15px;
             color: var(--text-primary);
-            border: 1px solid rgba(102, 126, 234, 0.2);
+            border: 1px solid rgba(67, 97, 238, 0.2);
             backdrop-filter: blur(5px);
+            margin-bottom: 20px;
         }
 
         .today-badge i {
@@ -531,132 +513,40 @@
             margin: 0 5px;
         }
 
-        /* ===== نمونه‌های سریع ===== */
-        .quick-examples {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            flex-wrap: wrap;
-            padding-top: 20px;
-            border-top: 1px solid var(--border-color);
-        }
-
-        .example-label {
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-            font-weight: 500;
-        }
-
-        .example-buttons {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .example-btn {
-            padding: 10px 20px;
-            border: 1px solid var(--border-color);
-            border-radius: 30px;
-            background: transparent;
-            color: var(--text-primary);
-            font-size: 0.9rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Vazirmatn', sans-serif;
-        }
-
-        .example-btn:hover {
-            background: var(--primary-gradient);
-            color: white;
-            border-color: transparent;
-            transform: translateY(-2px);
-        }
-
-        /* ===== دکمه تغییر تم ===== */
-        .theme-toggle {
-            position: fixed;
-            top: 30px;
-            left: 30px;
-            width: 55px;
-            height: 55px;
-            border-radius: 18px;
-            border: none;
-            background: var(--card-bg);
-            color: var(--text-primary);
-            font-size: 1.3rem;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 100;
-            box-shadow: var(--shadow-lg);
-            transition: all 0.4s ease;
-            border: 1px solid var(--glass-border);
-        }
-
-        .theme-toggle:hover {
-            transform: rotate(45deg) scale(1.1);
-            background: var(--primary-gradient);
-            color: white;
-        }
-
         /* ===== فوتر ===== */
         .footer {
-            margin-top: 35px;
+            margin-top: 30px;
             text-align: center;
             color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
-
-        .footer p {
-            margin-bottom: 10px;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
             font-size: 0.9rem;
-            opacity: 0.8;
+            opacity: 0.9;
         }
 
-        .dot {
-            color: var(--primary);
+        .heart {
+            color: #f72585;
+            animation: heartbeat 1.5s ease infinite;
         }
 
-        /* ===== انیمیشن‌ها ===== */
-        .animate-input {
-            animation: slideInRight 0.6s ease-out;
-        }
-
-        .animate-select {
-            animation: slideInLeft 0.6s ease-out;
-        }
-
-        @keyframes slideInRight {
-            from { opacity: 0; transform: translateX(30px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        @keyframes slideInLeft {
-            from { opacity: 0; transform: translateX(-30px); }
-            to { opacity: 1; transform: translateX(0); }
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
         }
 
         /* ===== ریسپانسیو ===== */
         @media (max-width: 768px) {
             .glass-card { padding: 25px; }
             h1 { font-size: 2rem; }
+            .selectors-grid { grid-template-columns: 1fr; }
+            .type-selectors { grid-template-columns: 1fr; }
+            .modern-icons { flex-wrap: wrap; }
             .result-value { font-size: 1.8rem; }
-            .theme-toggle { width: 45px; height: 45px; font-size: 1.1rem; }
         }
 
         @media (max-width: 480px) {
             .glass-card { padding: 20px; }
             h1 { font-size: 1.8rem; }
             .result-value { font-size: 1.5rem; }
+            .icon-circle { width: 60px; height: 60px; font-size: 24px; }
         }
     </style>
 </head>
@@ -666,111 +556,153 @@
         <i class="fas fa-moon"></i>
     </button>
 
-    <!-- اشکال شناور -->
-    <div class="floating-shapes">
-        <div class="shape shape1"></div>
-        <div class="shape shape2"></div>
-        <div class="shape shape3"></div>
-        <div class="shape shape4"></div>
-    </div>
-
     <!-- کانتینر اصلی -->
     <main class="container">
         <div class="glass-card">
             <!-- هدر -->
             <div class="header">
                 <div class="logo">
-                    <i class="fas fa-calendar-alt"></i>
+                    <i class="fas fa-calendar-check"></i>
                 </div>
                 <h1>تبدیل تاریخ</h1>
-                <p class="subtitle">حرفه‌ای • سریع • دقیق</p>
+                <div class="subtitle">
+                    <i class="fas fa-chevron-left"></i>
+                    <span>حرفه‌ای • سریع • دقیق</span>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
                 <div class="underline"></div>
             </div>
 
             <!-- باکس تبدیل -->
             <div class="converter-box">
-                <!-- ورودی تاریخ -->
-                <div class="input-wrapper">
-                    <div class="input-group animate-input">
-                        <label for="input-number">
-                            <i class="fas fa-pen"></i>
-                            عدد تاریخ را وارد کنید:
-                        </label>
-                        <div class="input-container">
-                            <i class="fas fa-calendar input-icon"></i>
-                            <input 
-                                type="text" 
-                                id="input-number" 
-                                placeholder="مثال: ۱۴۰۲/۱۲/۲۵  یا  2024/03/15" 
-                                autocomplete="off"
-                                dir="ltr"
-                            >
-                            <span class="focus-border"></span>
+                <!-- آیکون‌های مدرن و هماهنگ -->
+                <div class="modern-icons">
+                    <div class="icon-item">
+                        <div class="icon-circle">
+                            <i class="fas fa-sun"></i>
                         </div>
-                        <span class="hint-text">فرمت: سال-ماه-روز (مثلاً 1402-12-25)</span>
+                        <span class="icon-label">شمسی</span>
+                    </div>
+                    <div class="icon-item">
+                        <div class="icon-circle" style="background: linear-gradient(145deg, #4cc9f0, #4895ef);">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <span class="icon-label">میلادی</span>
+                    </div>
+                    <div class="icon-item">
+                        <div class="icon-circle" style="background: linear-gradient(145deg, #f72585, #b5179e);">
+                            <i class="fas fa-moon"></i>
+                        </div>
+                        <span class="icon-label">قمری</span>
+                    </div>
+                    <div class="icon-item">
+                        <div class="icon-circle" style="background: linear-gradient(145deg, #fb8500, #ffb703);">
+                            <i class="fas fa-history"></i>
+                        </div>
+                        <span class="icon-label">ژولین</span>
                     </div>
                 </div>
 
-                <!-- سلکتورها -->
-                <div class="selectors-wrapper">
-                    <div class="select-group animate-select">
-                        <label for="from-type">
-                            <i class="fas fa-arrow-right-circle"></i>
-                            تبدیل از:
-                        </label>
-                        <div class="custom-select">
-                            <select id="from-type">
-                                <option value="shamsi" selected>🇮🇷 شمسی (هجری شمسی)</option>
-                                <option value="miladi">🌍 میلادی</option>
-                                <option value="ghamari">🕌 قمری (هجری قمری)</option>
-                                <option value="julian">📜 ژولین</option>
+                <!-- سلکتورهای تاریخ - بخش جداگانه سال، ماه، روز -->
+                <div class="date-selectors">
+                    <div class="selector-title">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>تاریخ مورد نظر را انتخاب کنید</span>
+                    </div>
+                    
+                    <div class="selectors-grid">
+                        <!-- سال -->
+                        <div class="date-select-group">
+                            <label>
+                                <i class="fas fa-calendar"></i>
+                                سال
+                            </label>
+                            <select id="year-select" class="modern-select">
+                                <option value="">انتخاب سال</option>
+                            </select>
+                        </div>
+
+                        <!-- ماه -->
+                        <div class="date-select-group">
+                            <label>
+                                <i class="fas fa-calendar"></i>
+                                ماه
+                            </label>
+                            <select id="month-select" class="modern-select">
+                                <option value="">انتخاب ماه</option>
+                            </select>
+                        </div>
+
+                        <!-- روز -->
+                        <div class="date-select-group">
+                            <label>
+                                <i class="fas fa-calendar"></i>
+                                روز
+                            </label>
+                            <select id="day-select" class="modern-select">
+                                <option value="">انتخاب روز</option>
                             </select>
                         </div>
                     </div>
+                </div>
 
-                    <div class="swap-icon" id="swap-btn">
+                <!-- سلکتورهای نوع تاریخ -->
+                <div class="type-selectors">
+                    <div class="type-group">
+                        <label>
+                            <i class="fas fa-arrow-right"></i>
+                            تبدیل از:
+                        </label>
+                        <select id="from-type" class="type-select">
+                            <option value="shamsi" selected>🇮🇷 شمسی</option>
+                            <option value="miladi">🌍 میلادی</option>
+                            <option value="ghamari">🕌 قمری</option>
+                            <option value="julian">📜 ژولین</option>
+                        </select>
+                    </div>
+
+                    <div class="swap-btn" id="swap-btn">
                         <i class="fas fa-arrows-rotate"></i>
                     </div>
 
-                    <div class="select-group animate-select">
-                        <label for="to-type">
-                            <i class="fas fa-arrow-left-circle"></i>
+                    <div class="type-group">
+                        <label>
+                            <i class="fas fa-arrow-left"></i>
                             تبدیل به:
                         </label>
-                        <div class="custom-select">
-                            <select id="to-type">
-                                <option value="shamsi">🇮🇷 شمسی (هجری شمسی)</option>
-                                <option value="miladi" selected>🌍 میلادی</option>
-                                <option value="ghamari">🕌 قمری (هجری قمری)</option>
-                                <option value="julian">📜 ژولین</option>
-                            </select>
-                        </div>
+                        <select id="to-type" class="type-select">
+                            <option value="shamsi">🇮🇷 شمسی</option>
+                            <option value="miladi" selected>🌍 میلادی</option>
+                            <option value="ghamari">🕌 قمری</option>
+                            <option value="julian">📜 ژولین</option>
+                        </select>
                     </div>
                 </div>
 
                 <!-- دکمه تبدیل -->
                 <button id="convert-btn" class="convert-btn">
                     <span>تبدیل تاریخ</span>
-                    <i class="fas fa-exchange-alt"></i>
+                    <i class="fas fa-arrow-left"></i>
                 </button>
 
                 <!-- نتیجه -->
-                <div class="result-section" id="result-section">
-                    <div class="result-card">
-                        <div class="result-icon">
-                            <i class="fas fa-check-circle"></i>
+                <div class="result-card">
+                    <div class="result-icon">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="result-content">
+                        <div class="result-label">
+                            <i class="fas fa-star"></i>
+                            نتیجه تبدیل:
                         </div>
-                        <div class="result-content">
-                            <div class="result-label">نتیجه تبدیل:</div>
-                            <div class="result-value" id="result-value">
-                                -- / -- / --
-                            </div>
+                        <div class="result-value" id="result-value">
+                            --/--/----
                         </div>
                     </div>
                 </div>
 
                 <!-- تاریخ امروز -->
-                <div class="today-section">
+                <div style="display: flex; justify-content: center;">
                     <div class="today-badge">
                         <i class="fas fa-sun"></i>
                         <span>امروز:</span>
@@ -779,34 +711,18 @@
                         <span id="today-miladi">۲۰۲۴/۰۳/۱۹</span>
                     </div>
                 </div>
-
-                <!-- نمونه‌های سریع -->
-                <div class="quick-examples">
-                    <span class="example-label">نمونه‌های سریع:</span>
-                    <div class="example-buttons">
-                        <button class="example-btn" data-example="1402/12/29">📅 ۱۴۰۲/۱۲/۲۹</button>
-                        <button class="example-btn" data-example="2024/03/20">🌍 ۲۰۲۴/۰۳/۲۰</button>
-                        <button class="example-btn" data-example="1445/09/10">🕌 ۱۴۴۵/۰۹/۱۰</button>
-                    </div>
-                </div>
             </div>
 
-            <!-- فوتر -->
+            <!-- فوتر ساده -->
             <footer class="footer">
-                <p>طراحی شده با <i class="fas fa-heart" style="color: #ff6b6b;"></i> برای تبدیل تاریخ حرفه‌ای</p>
-                <div class="footer-links">
-                    <span>📅 Date Converter Pro v1.0</span>
-                    <span class="dot">•</span>
-                    <span>✨ تمامی حقوق محفوظ است</span>
-                </div>
+                <p>ساخته شده با <span class="heart"><i class="fas fa-heart"></i></span> برای تبدیل تاریخ حرفه‌ای</p>
             </footer>
         </div>
     </main>
 
-    <!-- کتابخانه جلالی برای تبدیل تاریخ شمسی -->
+    <!-- کتابخانه جلالی -->
     <script src="https://cdn.jsdelivr.net/npm/jalaali-js@1.2.6/dist/jalaali.min.js"></script>
-    
-    <!-- اسکریپت اصلی -->
+
     <script>
         // ===== تنظیمات اولیه =====
         let currentTheme = localStorage.getItem('theme') || 'light';
@@ -814,57 +730,89 @@
         // ===== راه‌اندازی =====
         document.addEventListener('DOMContentLoaded', function() {
             setTheme(currentTheme);
+            initializeDateSelectors();
             loadTodayDate();
             setupEventListeners();
-            setupExamples();
         });
+
+        // ===== مقداردهی اولیه سلکتورها =====
+        function initializeDateSelectors() {
+            const yearSelect = document.getElementById('year-select');
+            const monthSelect = document.getElementById('month-select');
+            const daySelect = document.getElementById('day-select');
+            
+            // سال‌ها (شمسی)
+            for (let year = 1403; year >= 1300; year--) {
+                const option = document.createElement('option');
+                option.value = year;
+                option.textContent = year;
+                yearSelect.appendChild(option);
+            }
+            
+            // ماه‌ها
+            const months = [
+                'فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور',
+                'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'
+            ];
+            
+            months.forEach((month, index) => {
+                const option = document.createElement('option');
+                option.value = index + 1;
+                option.textContent = month;
+                monthSelect.appendChild(option);
+            });
+            
+            // روزها (۱ تا ۳۱)
+            for (let day = 1; day <= 31; day++) {
+                const option = document.createElement('option');
+                option.value = day;
+                option.textContent = day;
+                daySelect.appendChild(option);
+            }
+            
+            // تنظیم مقدار پیش‌فرض
+            const today = new Date();
+            const jDate = jalaali.toJalaali(today);
+            yearSelect.value = jDate.jy;
+            monthSelect.value = jDate.jm;
+            updateDays(jDate.jy, jDate.jm);
+            daySelect.value = jDate.jd;
+        }
+
+        // ===== بروزرسانی روزها بر اساس ماه =====
+        function updateDays(year, month) {
+            const daySelect = document.getElementById('day-select');
+            const currentValue = daySelect.value;
+            
+            let daysInMonth = 31;
+            if (month <= 6) {
+                daysInMonth = 31;
+            } else if (month <= 11) {
+                daysInMonth = 30;
+            } else {
+                daysInMonth = jalaali.isLeapJalaaliYear(year) ? 30 : 29;
+            }
+            
+            daySelect.innerHTML = '<option value="">انتخاب روز</option>';
+            for (let day = 1; day <= daysInMonth; day++) {
+                const option = document.createElement('option');
+                option.value = day;
+                option.textContent = day;
+                daySelect.appendChild(option);
+            }
+            
+            if (currentValue && currentValue <= daysInMonth) {
+                daySelect.value = currentValue;
+            }
+        }
 
         // ===== تنظیم تم =====
         function setTheme(theme) {
             document.documentElement.setAttribute('data-theme', theme);
             localStorage.setItem('theme', theme);
-            
             const themeIcon = document.querySelector('#theme-toggle i');
             if (themeIcon) {
                 themeIcon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-            }
-        }
-
-        // ===== تغییر تم =====
-        function toggleTheme() {
-            currentTheme = currentTheme === 'light' ? 'dark' : 'light';
-            setTheme(currentTheme);
-        }
-
-        // ===== رویدادها =====
-        function setupEventListeners() {
-            document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
-            document.getElementById('convert-btn').addEventListener('click', convertDate);
-            document.getElementById('swap-btn').addEventListener('click', swapDates);
-            
-            const input = document.getElementById('input-number');
-            input.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') convertDate();
-            });
-        }
-
-        // ===== سوآپ تاریخ =====
-        function swapDates() {
-            const fromSelect = document.getElementById('from-type');
-            const toSelect = document.getElementById('to-type');
-            
-            const fromValue = fromSelect.value;
-            const toValue = toSelect.value;
-            
-            fromSelect.value = toValue;
-            toSelect.value = fromValue;
-            
-            const swapIcon = document.querySelector('#swap-btn i');
-            swapIcon.style.transform = 'rotate(360deg) scale(1.3)';
-            setTimeout(() => { swapIcon.style.transform = ''; }, 600);
-            
-            if (document.getElementById('input-number').value) {
-                convertDate();
             }
         }
 
@@ -882,50 +830,83 @@
             }
         }
 
-        // ===== نمونه‌های سریع =====
-        function setupExamples() {
-            document.querySelectorAll('.example-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    document.getElementById('input-number').value = this.dataset.example;
-                    convertDate();
-                });
+        // ===== رویدادها =====
+        function setupEventListeners() {
+            document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+            document.getElementById('convert-btn').addEventListener('click', convertDate);
+            document.getElementById('swap-btn').addEventListener('click', swapDates);
+            
+            const monthSelect = document.getElementById('month-select');
+            const yearSelect = document.getElementById('year-select');
+            
+            monthSelect.addEventListener('change', function() {
+                const year = yearSelect.value || 1402;
+                updateDays(year, this.value);
             });
+            
+            yearSelect.addEventListener('change', function() {
+                const month = monthSelect.value || 1;
+                updateDays(this.value, month);
+            });
+        }
+
+        // ===== تغییر تم =====
+        function toggleTheme() {
+            currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+            setTheme(currentTheme);
+        }
+
+        // ===== سوآپ تاریخ =====
+        function swapDates() {
+            const fromSelect = document.getElementById('from-type');
+            const toSelect = document.getElementById('to-type');
+            
+            [fromSelect.value, toSelect.value] = [toSelect.value, fromSelect.value];
+            
+            const swapIcon = document.querySelector('#swap-btn i');
+            swapIcon.style.transform = 'rotate(360deg) scale(1.2)';
+            setTimeout(() => { swapIcon.style.transform = ''; }, 500);
+            
+            if (document.getElementById('year-select').value) {
+                convertDate();
+            }
+        }
+
+        // ===== گرفتن تاریخ از سلکتورها =====
+        function getSelectedDate() {
+            const year = document.getElementById('year-select').value;
+            const month = document.getElementById('month-select').value;
+            const day = document.getElementById('day-select').value;
+            
+            if (!year || !month || !day) {
+                return null;
+            }
+            
+            return { year: parseInt(year), month: parseInt(month), day: parseInt(day) };
         }
 
         // ===== تبدیل تاریخ =====
         function convertDate() {
-            const input = document.getElementById('input-number').value.trim();
+            const date = getSelectedDate();
             const fromType = document.getElementById('from-type').value;
             const toType = document.getElementById('to-type').value;
             
-            if (!input) {
-                document.getElementById('result-value').innerHTML = '❌ لطفاً یک تاریخ وارد کنید';
+            if (!date) {
+                document.getElementById('result-value').innerHTML = '❌ لطفاً تاریخ را کامل کنید';
                 return;
             }
             
             try {
-                let parts = input.split(/[-/\\_]/).map(p => parseInt(p));
-                if (parts.length !== 3 || parts.some(isNaN)) {
-                    document.getElementById('result-value').innerHTML = '❌ فرمت تاریخ نامعتبر است';
-                    return;
-                }
-                
-                let [year, month, day] = parts;
                 let miladiDate;
                 
                 // تبدیل به میلادی
                 if (fromType === 'miladi') {
-                    miladiDate = new Date(year, month - 1, day);
+                    miladiDate = new Date(date.year, date.month - 1, date.day);
                 } else if (fromType === 'shamsi') {
-                    try {
-                        let g = jalaali.toGregorian(year, month, day);
-                        miladiDate = new Date(g.gy, g.gm - 1, g.gd);
-                    } catch (e) {
-                        document.getElementById('result-value').innerHTML = '❌ تاریخ شمسی نامعتبر';
-                        return;
-                    }
+                    const g = jalaali.toGregorian(date.year, date.month, date.day);
+                    miladiDate = new Date(g.gy, g.gm - 1, g.gd);
                 } else {
-                    document.getElementById('result-value').innerHTML = '❌ تبدیل این نوع تاریخ موقتاً غیرفعال است';
+                    document.getElementById('result-value').innerHTML = '🔧 به زودی...';
                     return;
                 }
                 
@@ -934,7 +915,7 @@
                 if (toType === 'miladi') {
                     result = `${miladiDate.getFullYear()}/${String(miladiDate.getMonth() + 1).padStart(2, '0')}/${String(miladiDate.getDate()).padStart(2, '0')}`;
                 } else if (toType === 'shamsi') {
-                    let j = jalaali.toJalaali(miladiDate);
+                    const j = jalaali.toJalaali(miladiDate);
                     result = `${j.jy}/${String(j.jm).padStart(2, '0')}/${String(j.jd).padStart(2, '0')}`;
                 } else {
                     result = '🔧 به زودی...';
