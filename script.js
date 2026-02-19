@@ -177,6 +177,22 @@ function setupEventListeners() {
     document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
     document.getElementById('convert-btn').addEventListener('click', convertDate);
     document.getElementById('swap-btn').addEventListener('click', swapDates);
+    document.getElementById('copy-btn').addEventListener('click', function() {
+    const textFa = document.getElementById('result-value-fa').innerText;
+    const textEn = document.getElementById('result-value-en').innerText;
+    const fullText = `${textFa}\n${textEn}`;
+    
+    navigator.clipboard.writeText(fullText).then(() => {
+        const btn = this;
+        btn.classList.add('copied');
+        btn.innerHTML = '<i class="fas fa-check"></i>';
+        
+        setTimeout(() => {
+            btn.classList.remove('copied');
+            btn.innerHTML = '<i class="fas fa-copy"></i>';
+        }, 2000);
+    });
+});
     
     document.getElementById('from-type').addEventListener('change', function() {
         initializeMonthSelector(this.value);
