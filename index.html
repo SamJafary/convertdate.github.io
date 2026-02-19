@@ -517,16 +517,38 @@
                     <i class="fas fa-calendar-check"></i>
                 </div>
                 <h1>تبدیل تاریخ</h1>
-                <div class="subtitle">
-                    <i class="fas fa-chevron-left"></i>
-                    <span>حرفه‌ای • سریع • دقیق</span>
-                    <i class="fas fa-chevron-right"></i>
-                </div>
+               <!-- خط 25 تا 28 رو پیدا کن و با این عوض کن -->
+<div class="subtitle">
+    <i class="fas fa-calendar-alt"></i>
+    <span>DATE CONVERTER</span>
+    <i class="fas fa-calendar-alt"></i>
+</div>
                 <div class="underline"></div>
             </div>
 
             <!-- باکس تبدیل -->
             <div class="converter-box">
+                <!-- بعد از خط 30 (underline) و قبل از خط 33 (modern-icons) این رو اضافه کن -->
+<div class="about-section">
+    <button class="scroll-btn" id="scroll-to-converter">
+        <i class="fas fa-arrow-down"></i>
+        <span>تبدیل کردن</span>
+        <i class="fas fa-arrow-down"></i>
+    </button>
+    
+    <div class="about-text">
+        <p class="about-title">📅 Date Converter Pro</p>
+        <p class="about-description">
+            یک ابزار حرفه‌ای و دقیق برای تبدیل انواع تاریخ‌های شمسی، میلادی، قمری و ژولین. 
+            با طراحی مدرن و کاربرپسند، تبدیل تاریخ را به ساده‌ترین شکل ممکن انجام دهید. 
+            این ابزار با پشتیبانی از سال‌های کبیسه، ماه‌های مختلف و دقت بالا، مناسب برای 
+            برنامه‌نویسان، طراحان، محققان و تمام افرادی است که نیاز به تبدیل تاریخ دارند.
+        </p>
+        <p class="about-features">
+            ✨ قابلیت‌ها: تبدیل آنی • پشتیبانی از ۴ نوع تاریخ • طراحی واکنش‌گرا • دارک مود • کپی سریع • کاملاً رایگان
+        </p>
+    </div>
+</div>
                 <!-- آیکون‌ها -->
                 <div class="modern-icons">
                     <div class="icon-item">
@@ -624,18 +646,35 @@
 
                 <!-- نتیجه سه خطی -->
                <!-- نتیجه با دکمه کپی -->
-<div class="result-card">
-    <div class="result-header">
-        <div class="result-label">
-            <i class="fas fa-star"></i> نتیجه تبدیل:
-        </div>
-        <button id="copy-btn" class="copy-btn" title="کپی کردن">
-            <i class="fas fa-copy"></i>
-        </button>
+<!-- خطوط مربوط به result-card رو پیدا کن (حدود خط 120-130) و کامل با این عوض کن -->
+<div class="result-card" id="copy-area" style="cursor: pointer;">
+    <div class="result-label">
+        <i class="fas fa-star"></i> نتیجه تبدیل:
     </div>
     <div class="result-content">
         <div class="result-value-fa" id="result-value-fa">-- -- ----</div>
         <div class="result-value-en" id="result-value-en">-- -- ----</div>
+    </div>
+    <div class="copy-hint">
+        <i class="fas fa-copy"></i> برای کپی کلیک کنید
+    </div>
+</div>
+                <!-- بعد از result-card و قبل از today-badge این رو اضافه کن (حدود خط 135) -->
+<div class="contact-section">
+    <div class="contact-card">
+        <div class="contact-header">
+            <i class="fas fa-envelope"></i>
+            <span>تماس با ما</span>
+        </div>
+        <div class="contact-email">
+            <a href="mailto:info@dateconverter.pro" class="email-link">
+                <i class="fas fa-at"></i>
+                info@dateconverter.pro
+            </a>
+        </div>
+        <div class="contact-note">
+            برای پیشنهادات و انتقادات با ما در ارتباط باشید
+        </div>
     </div>
 </div>
 
@@ -652,10 +691,14 @@
             </div>
 
             <!-- فوتر -->
-            <footer class="footer">
-                <p>ساخته شده با <span class="heart"><i class="fas fa-heart"></i></span></p>
-            </footer>
-        </div>
+         <!-- آخر فایل، قبل از </body>، فوتر قبلی رو پیدا کن و با این عوض کن -->
+<footer class="footer">
+    <div class="footer-content">
+        <div class="copyright">© 2024 Date Converter Pro</div>
+        <div class="credit">Created by <span class="name">Sam Jafari</span></div>
+        <div class="rights">All rights reserved</div>
+    </div>
+</footer>
     </main>
 
     <!-- کتابخانه جلالی -->
