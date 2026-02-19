@@ -623,14 +623,21 @@
                 </button>
 
                 <!-- نتیجه سه خطی -->
-                <div class="result-card">
-                    <div class="result-label">
-                        <i class="fas fa-star"></i> نتیجه تبدیل:
-                    </div>
-                    <div class="result-value-fa" id="result-value-fa">-- -- ----</div>
-                    <div class="result-value-en" id="result-value-en">-- -- ----</div>
-                    <div class="result-value-num" id="result-value-num">--/--/----</div>
-                </div>
+               <!-- نتیجه با دکمه کپی -->
+<div class="result-card">
+    <div class="result-header">
+        <div class="result-label">
+            <i class="fas fa-star"></i> نتیجه تبدیل:
+        </div>
+        <button id="copy-btn" class="copy-btn" title="کپی کردن">
+            <i class="fas fa-copy"></i>
+        </button>
+    </div>
+    <div class="result-content">
+        <div class="result-value-fa" id="result-value-fa">-- -- ----</div>
+        <div class="result-value-en" id="result-value-en">-- -- ----</div>
+    </div>
+</div>
 
                 <!-- تاریخ امروز -->
                 <div style="display: flex; justify-content: center;">
