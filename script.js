@@ -176,6 +176,31 @@ function loadTodayDate() {
 function setupEventListeners() {
     document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
     document.getElementById('convert-btn').addEventListener('click', convertDate);
+    // داخل تابع setupEventListeners، بعد از swap-btn و قبل از from-type این رو اضافه کن
+document.getElementById('copy-area').addEventListener('click', function() {
+    const textFa = document.getElementById('result-value-fa').innerText;
+    const textEn = document.getElementById('result-value-en').innerText;
+    // بعد از کد کپی یا هر جای دیگه از تابع setupEventListeners
+document.getElementById('scroll-to-converter').addEventListener('click', function() {
+    const converterBox = document.querySelector('.converter-box');
+    converterBox.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+    });
+});
+    
+    if (!textFa.includes('--') && !textEn.includes('--')) {
+        const fullText = `${textFa}\n${textEn}`;
+        
+        navigator.clipboard.writeText(fullText).then(() => {
+            const originalHtml = this.innerHTML;
+            this.innerHTML = '<div style="color: #10b981; text-align: center; padding: 10px;">✅ کپی شد!</div>';
+            setTimeout(() => {
+                this.innerHTML = originalHtml;
+            }, 1500);
+        });
+    }
+});
     document.getElementById('swap-btn').addEventListener('click', swapDates);
     document.getElementById('copy-btn').addEventListener('click', function() {
     const textFa = document.getElementById('result-value-fa').innerText;
