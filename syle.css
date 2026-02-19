@@ -247,12 +247,88 @@ body {
     animation: expandLine 3s ease-in-out infinite;
 }
 /* این رو بعد از استایل underline اضافه کن (حدود خط 140) */
+/* بخش درباره - جایگزین کن */
 .about-section {
-    margin-bottom: 25px;
-    padding: 15px;
-    background: linear-gradient(145deg, rgba(67, 97, 238, 0.03), rgba(58, 12, 163, 0.03));
+    background: linear-gradient(145deg, rgba(67, 97, 238, 0.08), rgba(58, 12, 163, 0.08));
+    border-radius: 28px;
+    padding: 20px;
+    margin: 20px 0 25px;
+    border: 1px solid rgba(67, 97, 238, 0.15);
+    box-shadow: 0 10px 25px rgba(67, 97, 238, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.scroll-btn {
+    width: 100%;
+    padding: 16px;
+    background: var(--primary-gradient);
+    border: none;
     border-radius: 24px;
-    border: 1px solid rgba(67, 97, 238, 0.08);
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 25px;
+    box-shadow: 0 10px 25px rgba(67, 97, 238, 0.3);
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+}
+
+.scroll-btn:active {
+    transform: scale(0.97);
+}
+
+.scroll-btn i {
+    font-size: 1.1rem;
+    animation: bounce 1.5s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(5px); }
+}
+
+.about-text {
+    text-align: center;
+    padding: 5px;
+}
+
+.about-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin-bottom: 15px;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.5px;
+}
+
+.about-description {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 20px;
+    opacity: 0.95;
+    text-align: justify;
+    padding: 0 5px;
+}
+
+.about-features {
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    padding: 15px;
+    background: linear-gradient(145deg, rgba(67, 97, 238, 0.1), rgba(58, 12, 163, 0.1));
+    border-radius: 20px;
+    border: 1px solid rgba(67, 97, 238, 0.2);
+    font-weight: 500;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
 }
 
 .scroll-btn {
@@ -693,70 +769,77 @@ body {
     font-size: 1.2rem;
 }
 /* این رو بعد از استایل today-badge اضافه کن (حدود خط 300) */
+/* بخش تماس با ما - جایگزین کن */
 .contact-section {
-    margin: 20px 0;
+    margin: 25px 0 20px;
 }
 
 .contact-card {
-    background: linear-gradient(145deg, rgba(67, 97, 238, 0.05), rgba(58, 12, 163, 0.05));
-    border-radius: 20px;
-    padding: 16px;
-    border: 1px solid rgba(67, 97, 238, 0.1);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
+    background: linear-gradient(145deg, rgba(67, 97, 238, 0.1), rgba(58, 12, 163, 0.1));
+    border-radius: 28px;
+    padding: 20px;
+    border: 1px solid rgba(67, 97, 238, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 10px 25px rgba(67, 97, 238, 0.1);
 }
 
 .contact-header {
     display: flex;
     align-items: center;
-    gap: 8px;
-    margin-bottom: 12px;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
     color: var(--text-primary);
-    font-weight: 600;
-    font-size: 0.95rem;
+    font-weight: 700;
+    font-size: 1.2rem;
 }
 
 .contact-header i {
     color: var(--primary);
-    font-size: 1.1rem;
+    font-size: 1.4rem;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 10px;
+    border-radius: 15px;
 }
 
 .contact-email {
     text-align: center;
-    margin: 12px 0;
+    margin: 15px 0;
 }
 
 .email-link {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     background: var(--primary-gradient);
     color: white;
-    padding: 12px 20px;
-    border-radius: 30px;
+    padding: 14px 25px;
+    border-radius: 40px;
     text-decoration: none;
-    font-size: 0.95rem;
-    font-weight: 500;
-    box-shadow: 0 5px 15px rgba(67, 97, 238, 0.2);
+    font-size: 1rem;
+    font-weight: 600;
+    box-shadow: 0 10px 20px rgba(67, 97, 238, 0.3);
     transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .email-link:active {
-    transform: scale(0.98);
+    transform: scale(0.96);
 }
 
 .email-link i {
-    font-size: 1rem;
+    font-size: 1.1rem;
 }
 
 .contact-note {
     text-align: center;
     color: var(--text-secondary);
-    font-size: 0.8rem;
-    opacity: 0.7;
-    margin-top: 8px;
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin-top: 15px;
+    font-style: italic;
 }
-
 .separator {
     opacity: 0.3;
     margin: 0 5px;
@@ -1038,72 +1121,88 @@ body {
     20%, 60% { transform: translateX(-5px); }
     40%, 80% { transform: translateX(5px); }
     /* ===== نتیجه دو زبانه ===== */
+/* کارت نتیجه - جایگزین کن */
 .result-card {
     background: var(--primary-gradient);
-    border-radius: 24px;
-    padding: 30px;
-    display: flex;
-    align-items: center;
-    gap: 25px;
-    margin-bottom: 30px;
-    box-shadow: 0 15px 30px rgba(67, 97, 238, 0.2);
+    border-radius: 28px;
+    padding: 25px;
+    margin: 20px 0 25px;
+    box-shadow: 0 15px 30px rgba(67, 97, 238, 0.3);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.result-icon {
-    width: 70px;
-    height: 70px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    backdrop-filter: blur(5px);
-}
-
-.result-icon i {
-    font-size: 35px;
-    color: white;
-}
-
-.result-content {
-    flex: 1;
+.result-card:active {
+    transform: scale(0.99);
 }
 
 .result-label {
-    font-size: 0.95rem;
-    color: rgba(255, 255, 255, 0.9);
-    margin-bottom: 12px;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 15px;
     display: flex;
     align-items: center;
     gap: 8px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+}
+
+.result-label i {
+    font-size: 1rem;
+}
+
+.result-content {
+    text-align: center;
 }
 
 .result-value-fa {
-    font-size: 2.2rem;
+    font-size: 1.8rem;
     font-weight: 800;
     color: white;
-    line-height: 1.2;
-    word-break: break-word;
-    margin-bottom: 5px;
-    direction: ltr;
-    text-align: left;
+    line-height: 1.4;
+    margin-bottom: 10px;
+    direction: rtl;
+    text-align: center;
     font-family: 'Vazirmatn', sans-serif;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .result-value-en {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.95);
     line-height: 1.4;
-    word-break: break-word;
     direction: ltr;
-    text-align: left;
-    font-family: 'Courier New', monospace;
+    text-align: center;
+    font-family: 'Vazirmatn', sans-serif;
     border-top: 1px solid rgba(255, 255, 255, 0.2);
-    padding-top: 8px;
+    padding-top: 12px;
     margin-top: 5px;
 }
 
+.copy-hint {
+    font-size: 0.8rem;
+    opacity: 0.7;
+    margin-top: 15px;
+    text-align: center;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 8px 12px;
+    border-radius: 30px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+.copy-hint i {
+    font-size: 0.8rem;
+}
 @media (max-width: 768px) {
     .result-value-fa {
         font-size: 1.8rem;
