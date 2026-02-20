@@ -42,6 +42,19 @@ document.addEventListener('DOMContentLoaded', function() {
     loadTodayDate();
     setupEventListeners();
     updateDays();
+    setupCopyListeners();
+    
+    // فعال کردن آیکون‌ها
+    const icons = document.querySelectorAll('.icon-circle');
+    icons.forEach((icon, index) => {
+        icon.style.transition = 'all 0.3s ease';
+        icon.addEventListener('mouseenter', () => {
+            icon.style.transform = 'translateY(-3px) scale(1.05)';
+        });
+        icon.addEventListener('mouseleave', () => {
+            icon.style.transform = 'translateY(0) scale(1)';
+        });
+    });
 });
 
 // ===== مقداردهی اولیه سلکتور ماه =====
@@ -61,7 +74,7 @@ function initializeMonthSelector(calendarType) {
     if (calendarType === 'shamsi') {
         const jDate = jalaali.toJalaali(today);
         monthSelect.value = jDate.jm;
-    } else if (calendarType === 'miladi' || calendarType === 'julian') {
+    } else {
         monthSelect.value = today.getMonth() + 1;
     }
 }
@@ -77,18 +90,11 @@ function updateDays() {
     let daysInMonth = 31;
     
     if (calendarType === 'shamsi') {
-        if (month <= 6) {
-            daysInMonth = 31;
-        } else if (month <= 11) {
-            daysInMonth = 30;
-        } else {
-            daysInMonth = jalaali.isLeapJalaaliYear(year) ? 30 : 29;
-        }
-    } else if (calendarType === 'miladi' || calendarType === 'julian') {
+        if (month <= 6) daysInMonth = 31;
+        else if (month <= 11) daysInMonth = 30;
+        else daysInMonth = jalaali.isLeapJalaaliYear(year) ? 30 : 29;
+    } else {
         daysInMonth = new Date(year, month, 0).getDate();
-    } else if (calendarType === 'ghamari') {
-        const monthLengths = [30, 29, 30, 29, 30, 29, 30, 29, 30, 29, 30, 29];
-        daysInMonth = monthLengths[month - 1] || 30;
     }
     
     daySelect.innerHTML = '<option value="">انتخاب روز</option>';
@@ -116,12 +122,17 @@ function validateYear(year, calendarType) {
 // ===== نمایش هشدار سال =====
 function showYearWarning(message) {
     const warningEl = document.getElementById('year-warning');
-    warningEl.style.display = 'flex';
-    warningEl.querySelector('span').textContent = message;
+    if (warningEl) {
+        warningEl.style.display = 'flex';
+        warningEl.querySelector('span').textContent = message;
+    }
 }
 
 function hideYearWarning() {
-    document.getElementById('year-warning').style.display = 'none';
+    const warningEl = document.getElementById('year-warning');
+    if (warningEl) {
+        warningEl.style.display = 'none';
+    }
 }
 
 function validateAndWarnYear() {
@@ -176,48 +187,7 @@ function loadTodayDate() {
 function setupEventListeners() {
     document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
     document.getElementById('convert-btn').addEventListener('click', convertDate);
-    // داخل تابع setupEventListeners، بعد از swap-btn و قبل از from-type این رو اضافه کن
-document.getElementById('copy-area').addEventListener('click', function() {
-    const textFa = document.getElementById('result-value-fa').innerText;
-    const textEn = document.getElementById('result-value-en').innerText;
-    // بعد از کد کپی یا هر جای دیگه از تابع setupEventListeners
-document.getElementById('scroll-to-converter').addEventListener('click', function() {
-    const converterBox = document.querySelector('.converter-box');
-    converterBox.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
-    });
-});
-    
-    if (!textFa.includes('--') && !textEn.includes('--')) {
-        const fullText = `${textFa}\n${textEn}`;
-        
-        navigator.clipboard.writeText(fullText).then(() => {
-            const originalHtml = this.innerHTML;
-            this.innerHTML = '<div style="color: #10b981; text-align: center; padding: 10px;">✅ کپی شد!</div>';
-            setTimeout(() => {
-                this.innerHTML = originalHtml;
-            }, 1500);
-        });
-    }
-});
     document.getElementById('swap-btn').addEventListener('click', swapDates);
-    document.getElementById('copy-btn').addEventListener('click', function() {
-    const textFa = document.getElementById('result-value-fa').innerText;
-    const textEn = document.getElementById('result-value-en').innerText;
-    const fullText = `${textFa}\n${textEn}`;
-    
-    navigator.clipboard.writeText(fullText).then(() => {
-        const btn = this;
-        btn.classList.add('copied');
-        btn.innerHTML = '<i class="fas fa-check"></i>';
-        
-        setTimeout(() => {
-            btn.classList.remove('copied');
-            btn.innerHTML = '<i class="fas fa-copy"></i>';
-        }, 2000);
-    });
-});
     
     document.getElementById('from-type').addEventListener('change', function() {
         initializeMonthSelector(this.value);
@@ -232,26 +202,66 @@ document.getElementById('scroll-to-converter').addEventListener('click', functio
     
     document.getElementById('month-select').addEventListener('change', updateDays);
     document.getElementById('year-input').addEventListener('blur', validateAndWarnYear);
+    
+    // اینتر در فیلد سال
+    document.getElementById('year-input').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') convertDate();
+    });
+}
+
+// ===== رویدادهای کپی =====
+function setupCopyListeners() {
+    const copyNumeric = document.getElementById('copy-numeric');
+    const copyText = document.getElementById('copy-text');
+    
+    if (copyNumeric) {
+        copyNumeric.addEventListener('click', function() {
+            const text = document.getElementById('numeric-value').innerText;
+            if (!text.includes('----')) {
+                navigator.clipboard.writeText(text).then(() => {
+                    const hint = this.querySelector('.copy-hint');
+                    const originalText = hint.innerHTML;
+                    hint.innerHTML = '<i class="fas fa-check"></i> کپی شد!';
+                    setTimeout(() => {
+                        hint.innerHTML = originalText;
+                    }, 1500);
+                });
+            }
+        });
+    }
+    
+    if (copyText) {
+        copyText.addEventListener('click', function() {
+            const textFa = document.getElementById('text-value-fa').innerText;
+            const textEn = document.getElementById('text-value-en').innerText;
+            if (!textFa.includes('---') && !textEn.includes('---') && !textFa.includes('❌')) {
+                const fullText = `${textFa}\n${textEn}`;
+                navigator.clipboard.writeText(fullText).then(() => {
+                    const hint = this.querySelector('.copy-hint');
+                    const originalText = hint.innerHTML;
+                    hint.innerHTML = '<i class="fas fa-check"></i> کپی شد!';
+                    setTimeout(() => {
+                        hint.innerHTML = originalText;
+                    }, 1500);
+                });
+            }
+        });
+    }
 }
 
 // ===== سوآپ تاریخ =====
 function swapDates() {
     const fromSelect = document.getElementById('from-type');
     const toSelect = document.getElementById('to-type');
-    
     [fromSelect.value, toSelect.value] = [toSelect.value, fromSelect.value];
     
     const swapIcon = document.querySelector('#swap-btn i');
-    swapIcon.style.transform = 'rotate(360deg) scale(1.2)';
-    setTimeout(() => { swapIcon.style.transform = ''; }, 500);
+    swapIcon.style.transform = 'rotate(180deg)';
+    setTimeout(() => swapIcon.style.transform = '', 200);
     
     initializeMonthSelector(fromSelect.value);
     updateDays();
-    validateAndWarnYear();
-    
-    if (document.getElementById('year-input').value) {
-        convertDate();
-    }
+    if (document.getElementById('year-input').value) convertDate();
 }
 
 // ===== گرفتن تاریخ از ورودی‌ها =====
@@ -259,132 +269,66 @@ function getSelectedDate() {
     const year = document.getElementById('year-input').value;
     const month = document.getElementById('month-select').value;
     const day = document.getElementById('day-select').value;
-    
-    if (!year || !month || !day) {
-        return null;
-    }
-    
-    return { 
-        year: parseInt(year), 
-        month: parseInt(month), 
-        day: parseInt(day) 
+    return (!year || !month || !day) ? null : { 
+        year: parseInt(year), month: parseInt(month), day: parseInt(day) 
     };
 }
 
-// ===== تبدیل تاریخ =====
+// ===== تبدیل تاریخ جدید =====
 function convertDate() {
-    // اعتبارسنجی سال
-    if (!validateAndWarnYear()) {
-        document.getElementById('result-value-fa').innerHTML = '❌ سال معتبر وارد کنید';
-        document.getElementById('result-value-en').innerHTML = '❌ Invalid year';
-        document.getElementById('result-value-num').innerHTML = '--/--/----';
-        return;
-    }
-    
     const date = getSelectedDate();
-    const fromType = document.getElementById('from-type').value;
-    const toType = document.getElementById('to-type').value;
-    
     if (!date) {
-        document.getElementById('result-value-fa').innerHTML = '❌ لطفاً تاریخ را کامل کنید';
-        document.getElementById('result-value-en').innerHTML = '❌ Please complete the date';
-        document.getElementById('result-value-num').innerHTML = '--/--/----';
+        document.getElementById('numeric-value').innerHTML = '----/--/--';
+        document.getElementById('text-value-fa').innerHTML = '--- --- ----';
+        document.getElementById('text-value-en').innerHTML = '--- --- ----';
         return;
     }
     
     try {
+        const fromType = document.getElementById('from-type').value;
+        const toType = document.getElementById('to-type').value;
+        
         let miladiDate;
         
-        // تبدیل به میلادی
         if (fromType === 'miladi') {
             miladiDate = new Date(date.year, date.month - 1, date.day);
         } else if (fromType === 'shamsi') {
             const g = jalaali.toGregorian(date.year, date.month, date.day);
             miladiDate = new Date(g.gy, g.gm - 1, g.gd);
-        } else if (fromType === 'ghamari') {
-            // تبدیل تقریبی قمری به میلادی
-            const startDate = new Date(622, 6, 16);
-            const daysSinceHijra = (date.year - 1) * 354.367 + (date.month - 1) * 29.530589 + date.day - 1;
-            miladiDate = new Date(startDate.getTime() + daysSinceHijra * 24 * 60 * 60 * 1000);
-        } else if (fromType === 'julian') {
-            miladiDate = new Date(date.year, date.month - 1, date.day);
         } else {
-            document.getElementById('result-value-fa').innerHTML = '🔧 به زودی...';
-            document.getElementById('result-value-en').innerHTML = '🔧 Coming soon...';
-            document.getElementById('result-value-num').innerHTML = '--/--/----';
-            return;
+            miladiDate = new Date(date.year, date.month - 1, date.day);
         }
         
-        // ===== نمایش نتیجه سه خطی =====
-        const resultFa = document.getElementById('result-value-fa');
-        const resultEn = document.getElementById('result-value-en');
-        const resultNum = document.getElementById('result-value-num');
+        const numericValue = document.getElementById('numeric-value');
+        const textFa = document.getElementById('text-value-fa');
+        const textEn = document.getElementById('text-value-en');
         
-        // تبدیل به خروجی
         if (toType === 'miladi') {
-            const year = miladiDate.getFullYear();
-            const month = miladiDate.getMonth() + 1;
-            const day = miladiDate.getDate();
+            const y = miladiDate.getFullYear();
+            const m = miladiDate.getMonth() + 1;
+            const d = miladiDate.getDate();
             
-            // فارسی کامل
-            resultFa.innerHTML = `${day} ${MONTHS.miladi[month-1]} ${year}`;
-            // انگلیسی
-            resultEn.innerHTML = `${englishMonths[month-1]} ${day}, ${year}`;
-            // عددی
-            resultNum.innerHTML = `${year}/${String(month).padStart(2, '0')}/${String(day).padStart(2, '0')}`;
+            numericValue.innerHTML = `${y}/${String(m).padStart(2,'0')}/${String(d).padStart(2,'0')}`;
+            textFa.innerHTML = `${d} ${MONTHS.miladi[m-1] || ''} ${y}`;
+            textEn.innerHTML = `${englishMonths[m-1] || ''} ${d}, ${y}`;
             
         } else if (toType === 'shamsi') {
             const j = jalaali.toJalaali(miladiDate);
             
-            // فارسی کامل
-            resultFa.innerHTML = `${j.jd} ${MONTHS.shamsi[j.jm-1]} ${j.jy}`;
-            // انگلیسی
-            resultEn.innerHTML = `${englishMonths[j.jm-1]} ${j.jd}, ${j.jy}`;
-            // عددی
-            resultNum.innerHTML = `${j.jy}/${String(j.jm).padStart(2, '0')}/${String(j.jd).padStart(2, '0')}`;
+            numericValue.innerHTML = `${j.jy}/${String(j.jm).padStart(2,'0')}/${String(j.jd).padStart(2,'0')}`;
+            textFa.innerHTML = `${j.jd} ${MONTHS.shamsi[j.jm-1] || ''} ${j.jy}`;
+            textEn.innerHTML = `${englishMonths[j.jm-1] || ''} ${j.jd}, ${j.jy}`;
             
-        } else if (toType === 'ghamari') {
-            // تبدیل تقریبی میلادی به قمری
-            const startDate = new Date(622, 6, 16);
-            const daysDiff = Math.floor((miladiDate - startDate) / (24 * 60 * 60 * 1000));
-            let hijriYear = Math.floor(daysDiff / 354.367) + 1;
-            let remainingDays = daysDiff % 354.367;
-            let hijriDay = Math.floor(remainingDays) + 1;
-            let hijriMonth = 1;
-            
-            const monthLengths = [30, 29, 30, 29, 30, 29, 30, 29, 30, 29, 30, 29];
-            for (let i = 0; i < monthLengths.length; i++) {
-                if (hijriDay <= monthLengths[i]) {
-                    hijriMonth = i + 1;
-                    break;
-                }
-                hijriDay -= monthLengths[i];
-            }
-            
-            // فارسی کامل
-            resultFa.innerHTML = `${hijriDay} ${MONTHS.ghamari[hijriMonth-1]} ${hijriYear}`;
-            // انگلیسی
-            resultEn.innerHTML = `${englishMonths[hijriMonth-1]} ${hijriDay}, ${hijriYear}`;
-            // عددی
-            resultNum.innerHTML = `${hijriYear}/${String(hijriMonth).padStart(2, '0')}/${String(hijriDay).padStart(2, '0')}`;
-            
-        } else if (toType === 'julian') {
-            const year = miladiDate.getFullYear();
-            const month = miladiDate.getMonth() + 1;
-            const day = miladiDate.getDate();
-            
-            // فارسی کامل
-            resultFa.innerHTML = `${day} ${MONTHS.julian[month-1]} ${year}`;
-            // انگلیسی
-            resultEn.innerHTML = `${englishMonths[month-1]} ${day}, ${year}`;
-            // عددی
-            resultNum.innerHTML = `${year}/${String(month).padStart(2, '0')}/${String(day).padStart(2, '0')}`;
+        } else {
+            numericValue.innerHTML = '----/--/--';
+            textFa.innerHTML = '🚧 به زودی';
+            textEn.innerHTML = '🚧 Coming soon';
         }
         
     } catch (error) {
-        document.getElementById('result-value-fa').innerHTML = '❌ خطا در تبدیل';
-        document.getElementById('result-value-en').innerHTML = '❌ Conversion error';
-        document.getElementById('result-value-num').innerHTML = '--/--/----';
         console.error(error);
+        document.getElementById('numeric-value').innerHTML = '----/--/--';
+        document.getElementById('text-value-fa').innerHTML = '❌ خطا';
+        document.getElementById('text-value-en').innerHTML = '❌ Error';
     }
 }
