@@ -799,16 +799,29 @@
                 <!-- نتیجه سه خطی -->
                <!-- نتیجه با دکمه کپی -->
 <!-- خطوط مربوط به result-card رو پیدا کن (حدود خط 120-130) و کامل با این عوض کن -->
-<div class="result-card" id="copy-area" style="cursor: pointer;">
-    <div class="result-label">
-        <i class="fas fa-star"></i> نتیجه تبدیل:
+<!-- نتیجه جدید - دو بخش مجزا -->
+<div class="result-section">
+    <!-- بخش عددی (قابل کپی) -->
+    <div class="result-box result-numeric" id="copy-numeric">
+        <div class="result-label">
+            <i class="fas fa-hashtag"></i> فرمت عددی:
+        </div>
+        <div class="numeric-value" id="numeric-value">----/--/--</div>
+        <div class="copy-hint">
+            <i class="fas fa-copy"></i> کلیک برای کپی
+        </div>
     </div>
-    <div class="result-content">
-        <div class="result-value-fa" id="result-value-fa">-- -- ----</div>
-        <div class="result-value-en" id="result-value-en">-- -- ----</div>
-    </div>
-    <div class="copy-hint">
-        <i class="fas fa-copy"></i> برای کپی کلیک کنید
+
+    <!-- بخش نوشتاری (قابل کپی) -->
+    <div class="result-box result-text" id="copy-text">
+        <div class="result-label">
+            <i class="fas fa-font"></i> فرمت نوشتاری:
+        </div>
+        <div class="text-value-fa" id="text-value-fa">--- --- ----</div>
+        <div class="text-value-en" id="text-value-en">--- --- ----</div>
+        <div class="copy-hint">
+            <i class="fas fa-copy"></i> کلیک برای کپی
+        </div>
     </div>
 </div>
                 <!-- بعد از result-card و قبل از today-badge این رو اضافه کن (حدود خط 135) -->
