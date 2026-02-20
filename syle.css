@@ -654,46 +654,53 @@ body {
 
 /* ===== بخش نتیجه ===== */
 /* ===== بخش نتیجه جدید ===== */
+/* ===== بخش نتیجه جدید - کاملاً جداگانه ===== */
 .result-section {
     display: flex;
     flex-direction: column;
     gap: 15px;
     margin: 20px 0;
+    width: 100%;
 }
 
 .result-box {
-    background: var(--primary-gradient);
-    border-radius: 24px;
-    padding: 18px;
+    border-radius: 20px;
+    padding: 18px 15px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 10px 20px rgba(67, 97, 238, 0.2);
+    transition: all 0.2s ease;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .result-box:active {
-    transform: scale(0.98);
+    transform: scale(0.99);
 }
 
 .result-numeric {
     background: linear-gradient(145deg, #4361ee, #3a0ca3);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 20px rgba(67, 97, 238, 0.25);
 }
 
 .result-text {
     background: linear-gradient(145deg, #3a0ca3, #4361ee);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 20px rgba(58, 12, 163, 0.25);
 }
 
 .result-label {
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.9);
-    margin-bottom: 12px;
     display: flex;
     align-items: center;
     gap: 6px;
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 12px;
 }
 
 .result-label i {
     font-size: 0.9rem;
+    color: white;
 }
 
 .numeric-value {
@@ -703,45 +710,46 @@ body {
     text-align: center;
     direction: ltr;
     font-family: 'Courier New', monospace;
-    letter-spacing: 2px;
-    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    letter-spacing: 1px;
+    line-height: 1.3;
 }
 
 .text-value-fa {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     font-weight: 700;
     color: white;
     text-align: center;
     direction: rtl;
     font-family: 'Vazirmatn', sans-serif;
     margin-bottom: 8px;
-    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    line-height: 1.4;
 }
 
 .text-value-en {
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.95);
+    color: rgba(255, 255, 255, 0.9);
     text-align: center;
     direction: ltr;
     font-family: 'Vazirmatn', sans-serif;
     border-top: 1px solid rgba(255, 255, 255, 0.2);
     padding-top: 10px;
+    line-height: 1.4;
 }
 
 .copy-hint {
-    font-size: 0.75rem;
-    opacity: 0.7;
-    margin-top: 12px;
-    text-align: left;
-    color: white;
     display: flex;
     align-items: center;
-    gap: 4px;
+    justify-content: flex-end;
+    gap: 5px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.75rem;
+    margin-top: 12px;
 }
 
 .copy-hint i {
     font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.7);
 }
 
 /* ===== ریسپانسیو برای موبایل ===== */
@@ -759,7 +767,7 @@ body {
     }
     
     .result-box {
-        padding: 15px;
+        padding: 15px 12px;
     }
 }
 
