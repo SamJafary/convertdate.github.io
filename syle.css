@@ -299,8 +299,8 @@ body {
 }
 
 .about-title {
-    font-size: 1.4rem;
-    font-weight: 800;
+    font-size: 1rem;
+    font-weight:700;
     margin-bottom: 15px;
     background: var(--primary-gradient);
     -webkit-background-clip: text;
